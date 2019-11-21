@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="css/wallet-js.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#213d62">
+  <link rel="shortcut icon" href="icons/favicon.ico">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <title>Payment Button Showcase</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="columns ">
+      <header class="navbar">
+        <section class="navbar-section">
+          <a href="#intro" class="btn btn-link">Introduction</a>
+          <a href="#howto" class="btn btn-link">How it works</a>
+          <a href="#reference" class="btn btn-link">Reference</a>
+        </section>
+      </header>
+    </div>
+
+    <div class="columns">
+      <div class="col-12 column">
+        <div class="content">
+          <div class="intro" id="intro">
+            <h2>Datatrans Payment Button </h2>
+            <p>Use this javascript library to render an Apple or Google Pay button. It uses the Payment
+              Request API <a href="https://www.w3.org/TR/payment-request/">specified</a> by W3C
+              when available. If not it falls back to the corresponding vendor implementation. This
+              library gives you
+              a
+              single integration for rendering payment buttons. It can automatically detect which button
+              should be displayed depending on the browser and device combination that is supported and
+              used. In the
+              demo
+              below, depending on your device you will see either an ApplePay or GooglePay button. The library will
+              authorize automatically and return the same response as our <a
+                href="https://api-reference.datatrans.ch/json/">JSON APIs</a>
+            </p>
+          </div>
+          <div class="divider"></div>
+          <div class="demo" id="demo">
+            <h3>Configure and test the example </h3>
+            <div class="columns">
+              <div class="col-md-6 col-xs-12 column">
+                <form class="form-horizontal" id="configForm">
+                  <div class="form-group">
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="requestPayerEmail">
+                      <i class="form-icon"></i> Request Buyer E-mail
+                    </label>
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="requestPayerName">
+                      <i class="form-icon"></i> Request Payer Name
+                    </label>
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="requestPayerPhone">
+                      <i class="form-icon"></i> Request Payer Phone
+                    </label>
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="useApplePay">
+                      <i class="form-icon"></i> Use Apple Pay only
+                    </label>
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="useGooglePay">
+                      <i class="form-icon"></i> Use Google Pay only
+                    </label>
+                  </div>
+                  <div class="form-group col-xs-6 col-4">
+                    <label class="form-label" for="merchantName">Merchant Name</label>
+                    <input class="form-input" type="text" id="merchantName" placeholder="Merchant Name">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label" for="amount">Amount</label>
+                    <input class="form-input" type="text" pattern="[0-9]*" id="amount" placeholder="Amount">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label" for="currency">Currency</label>
+                    <select class="form-select" id="currency">
+                      <option value="CHF">CHF</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                    </select>
+                  </div>
+                </form>
+
+
+
+              </div>
+
+              <div class="column col-md-5 col-xs-12">
+                <h4>Events output</h4>
+                <div class="empty console">
+                  <div class="console-content"></div>
+                  <i id="clearButton" class="icon icon-2x icon-delete" style="float: right;"></i>
+                </div>
+                <div class="divider"></div>
+                <div id="paybutton"></div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="divider"></div>
+          <div class="howto" id="howto">
+            <h2>How it works</h2>
+            <div class="columns">
+              <div class="col-12 column">
+                <h4>1) The payment request</h4>
+                The library expects a payment request when a button is created. The payment request is
+                an object which conforms with the <a
+                  href="https://www.w3.org/TR/payment-request/#paymentrequest-interface">W3C payment
+                  request interface description </a>
+                . The object is extended with a transaction property wich contains Datatrans specific
+                values, which currently are "currencyCode" and "refno".
+
+                <pre class="code" data-lang="JSON"><code>
+const payment = {
+  // W3C spec
+  details: {
+    total: {
+      label: "My Merchant",
+      amount: { value: "1.50", currency: "USD" },
+    },
+    displayItems: [
+      {
+        label: "Tax",
+        amount: { value: "2.50", currency: "USD" },
+      }
+    ],
+    shippingOptions: [
+      {
+        id: "ground",
+        label: "Ground Shipping",
+        amount: { value: "5.00", currency: "USD" },
+        selected: true,
+      },
+      {
+        id: "express",
+        label: "Express Shipping",
+        amount: { value: "10.00", currency: "USD" },
+      }
+    ]
+  },
+  // W3C spec
+  options: {
+    requestPayerEmail: true,
+    requestPayerName: true,
+    requestPayerPhone: false,
+    requestShipping: true
+  },
+  // Datatrans specific
+  transaction: {
+    countryCode: "CH",
+    refno: "3e23dasdasd1123"
+  }
+};
+                                    </code></pre>
+              </div>
+              <div class="col-12 column">
+                <h4>2) Initialize the library</h4>
+                <pre class="code" data-lang="JS">
+                  <code>
+PaymentButton.init({
+  merchantId: '1000011011',
+  merchantName: 'Test',
+  useGooglePay: false,
+  useApplePay: false,
+  auto: true,
+  allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+  googlePayConfiguration: {
+    buttonType: "long",
+    buttonStyle: "black",
+    merchantId: "01234567890123456789"
+  },
+  applePayConfiguration: {
+    merchantIdentifier: "merchant.ch.datatrans.wallet",
+    validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+    buttonType: "plain",
+    buttonStyle: "black"
+  }
+});
+                  </code>
+                </pre>
+              </div>
+            <div class="col-12 column">
+              <h4>3) Listen for the init event and create the button</h4>
+              <pre class="code" data-lang="JS">
+                  <code>
+PaymentButton.on("init", function () {
+  PaymentButton.create(document.getElementById('paybutton'), payment)
+});
+                  </code>
+                </pre>
+            </div>
+            <div class="col-12 column">
+              <h4>4) Listen for the authorization event and continue</h4>
+              <pre class="code" data-lang="JS">
+                    <code>
+PaymentButton.on("authorization", function (response) {
+  // handle transaction result
+});
+                    </code>
+                  </pre>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <h2>Reference</h2>
+            <div class="columns reference" id="reference">
+              <div class="col-md-6 col-xs-12 column">
+                <h4>Events</h4>
+                Following events will be emmited by the library
+                <ul>
+                  <li><b>init</b> - emitted when the library is initialized and ready to use</li>
+                  <li><b>create</b> - emitted when payment button is rendered</li>
+                  <li><b>authorization</b> - emitted when an authorization response has been received - <b>payload:</b>
+                    authorization response</li>
+                  <li><b>abort</b> - emitted when the payment request has been cancelled by the user</li>
+                  <li><b>unsupported</b> - emitted when no payment method is supported</li>
+                  <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-xs-12 column">
+                <h4>Options</h4>
+                <table class="table table-scroll">
+                  <tr>
+                    <th>Option</th>
+                    <th colspan="2">Description</th>
+                    <th>Data type</th>
+                  </tr>
+                  <tr>
+                    <td>merchantId</td>
+                    <td colspan="2">Your datatrans merchantId</td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>merchantName</td>
+                    <td colspan="2">Your merchant name</td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>useGooglePay</td>
+                    <td colspan="2">Wether to use GooglePay only. Note: GooglePay will not be displayed within Safari
+                      browsers currently when the PaymentRequest API is used</td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>useApplePay</td>
+                    <td colspan="2">Use ApplePay only. Note: Apple Pay can only be displayed in Safari browsers.</td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>auto</td>
+                    <td colspan="2">Determines automatically which button will be displayed (GooglePay|ApplePay)</td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>allowedCardNetworks</td>
+                    <td colspan="2">Which cardnetworks to accept</td>
+                    <td>String array</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="4">Configuration Object for GooglePay</td>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                  </tr>
+                  <tr>
+                    <td>buttonType</td>
+                    <td>The type of button, described <a
+                        href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>buttonStyle</td>
+                    <td>The style of button, described <a
+                        href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>merchantId</td>
+                    <td>Your google pay merchantId described <a
+                        href="https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="5">Configuration Object for ApplePay</td>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                  </tr>
+                  <tr>
+                    <td>merchantIdentifier</td>
+                    <td>The identifier defined by Apple </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>validationURL</td>
+                    <td>Your API endpoint to validate/ create an apple pay session </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>buttonType</td>
+                    <td>The type of button, described <a
+                        href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>buttonStyle</td>
+                    <td>The style of the button, described <a
+                        href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <script>
+    const payment = {
+      // W3C spec
+      details: {
+        total: {
+          label: "My Merchant",
+          amount: { value: "1.50", currency: "USD" },
+        },
+        displayItems: [
+          {
+            label: "Tax",
+            amount: { value: "2.50", currency: "USD" },
+          }
+        ],
+        shippingOptions: [
+          {
+            id: "ground",
+            label: "Ground Shipping",
+            amount: { value: "5.00", currency: "USD" },
+            selected: true,
+          },
+          {
+            id: "express",
+            label: "Express Shipping",
+            amount: { value: "10.00", currency: "USD" },
+          }
+        ]
+      },
+      // W3C spec
+      options: {
+        requestPayerEmail: true,
+        requestPayerName: true,
+        requestPayerPhone: false,
+        requestShipping: true
+      },
+      // Datatrans specific
+      transaction: {
+        countryCode: "CH",
+        refno: "3e23dasdasd1123"
+      }
+    };
+
+    $(document).ready(function () {
+      $("#configForm").change(function (data) {
+        let merchantName = "Test";
+        if (data.target.type === "checkbox" && data.target.id != "useApplePay" && data.target.id != "useGooglePay") {
+          if (data.target.checked == true) {
+            payment.options[data.target.id] = true;
+          } else {
+            payment.options[data.target.id] = false;
+          }
+          PaymentButton.create(document.getElementById('paybutton'), payment);
+
+        }
+
+        if (data.target.id === "amount") {
+          payment.details.total.amount.value = data.target.value;
+          PaymentButton.create(document.getElementById('paybutton'), payment);
+        }
+
+        if (data.target.id === "currency") {
+          payment.details.total.amount.currency = data.target.value;
+          PaymentButton.create(document.getElementById('paybutton'), payment);
+        }
+
+        if (data.target.id === "merchantName") {
+          merchantName = data.target.value;
+
+          payment.details.total.label = data.target.value;
+
+          PaymentButton.init({
+            merchantId: '1000011011',
+            merchantName: merchantName,
+            useGooglePay: false,
+            useApplePay: false,
+            auto: true,
+            allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+            googlePayConfiguration: {
+              buttonType: "long",
+              buttonStyle: "black",
+              merchantId: "01234567890123456789"
+            },
+            applePayConfiguration: {
+              merchantIdentifier: "merchant.ch.datatrans.wallet",
+              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+              buttonType: "plain",
+              buttonStyle: "black"
+            }
+          });
+        }
+        if (data.target.id === "useApplePay") {
+          var useApplePay = false;
+          var useGooglePay = false;
+          if (data.target.value === "on") {
+            useApplePay = true;
+          } else {
+            useGooglePay = true;
+          }
+          PaymentButton.init({
+            merchantId: '1000011011',
+            merchantName: merchantName,
+            useGooglePay: useGooglePay,
+            useApplePay: useApplePay,
+            auto: false,
+            allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+            googlePayConfiguration: {
+              buttonType: "long",
+              buttonStyle: "black",
+              merchantId: "01234567890123456789"
+            },
+            applePayConfiguration: {
+              merchantIdentifier: "merchant.ch.datatrans.wallet",
+              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+              buttonType: "plain",
+              buttonStyle: "black"
+            }
+          });
+        }
+        if (data.target.id === "useGooglePay") {
+          var useApplePay = false;
+          var useGooglePay = false;
+          if (data.target.value === "on") {
+            useGooglePay = true;
+          } else {
+            useApplePay = true;
+          }
+          PaymentButton.init({
+            merchantId: '1000011011',
+            merchantName: merchantName,
+            useGooglePay: useGooglePay,
+            useApplePay: useApplePay,
+            auto: false,
+            allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+            googlePayConfiguration: {
+              buttonType: "long",
+              buttonStyle: "black",
+              merchantId: "01234567890123456789"
+            },
+            applePayConfiguration: {
+              merchantIdentifier: "merchant.ch.datatrans.wallet",
+              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+              buttonType: "plain",
+              buttonStyle: "black"
+            }
+          });
+        }
+      })
+
+      $("#clearButton").click(function () {
+        $(".console-content").empty();
+      });
+    });
+
+    PaymentButton.init({
+      merchantId: '1000011011',
+      merchantName: 'Test',
+      useGooglePay: false,
+      useApplePay: false,
+      auto: true,
+      allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+      googlePayConfiguration: {
+        buttonType: "long",
+        buttonStyle: "black",
+        merchantId: "01234567890123456789"
+      },
+      applePayConfiguration: {
+        merchantIdentifier: "merchant.datatrans.ch.payment.button",
+        validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+        buttonType: "plain",
+        buttonStyle: "black"
+      }
+    });
+
+    PaymentButton.on("init", function () { $(".console-content").append("init event dispatched <br>"); PaymentButton.create(document.getElementById('paybutton'), payment) });
+    PaymentButton.on("create", function () { $(".console-content").append("create event dispatched <br>") });
+    PaymentButton.on("authorization", function (response) {
+      $(".console-content").append("authorization response:" + "<br>" + response + "<br>");
+    });
+    PaymentButton.on("abort", function () {
+      $(".console-content").append("Payment request aborted" + "<br>")
+    });
+    PaymentButton.on("error", function (error) {
+      $(".console-content").append("Error:" + JSON.stringify(error) + "<br>")
+    })
+
+    PaymentButton.on("unsupported", function () {
+      $(".console-content").append("Payment method not supported in this browser <br>")
+    })
+  </script>
+</body>
