@@ -139,27 +139,13 @@ const payment = {
         label: "Tax",
         amount: { value: "2.50", currency: "USD" },
       }
-    ],
-    shippingOptions: [
-      {
-        id: "ground",
-        label: "Ground Shipping",
-        amount: { value: "5.00", currency: "USD" },
-        selected: true,
-      },
-      {
-        id: "express",
-        label: "Express Shipping",
-        amount: { value: "10.00", currency: "USD" },
-      }
     ]
   },
   // W3C spec
   options: {
     requestPayerEmail: true,
     requestPayerName: true,
-    requestPayerPhone: false,
-    requestShipping: true
+    requestPayerPhone: false
   },
   // Datatrans specific
   transaction: {
@@ -273,7 +259,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String array</td>
                   </tr>
                   <tr>
-                    <td rowspan="4">Configuration Object for GooglePay</td>
+                    <td rowspan="4">googlePayConfiguration</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -300,7 +286,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String</td>
                   </tr>
                   <tr>
-                    <td rowspan="5">Configuration Object for ApplePay</td>
+                    <td rowspan="5">applePayConfiguration</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -312,7 +298,12 @@ PaymentButton.on("authorization", function (response) {
                   </tr>
                   <tr>
                     <td>validationURL</td>
-                    <td>Your API endpoint to validate/ create an apple pay session </td>
+                    <td>Your API endpoint to validate/create an apple pay session.
+                      A sample implementation can be found
+                      <a href="https://github.com/datatrans/apple-pay-web-sample/blob/master/src/main/java/ch/datatrans/applepay/ApplePayController.java#L41" target="_blank">here.</a><br>
+                      From this endpoint, the Apple Pay session validation URL <a href="https://github.com/datatrans/apple-pay-web-sample/blob/master/src/main/java/ch/datatrans/applepay/client/ApplePayClient.java" target="_blank">needs to be called.</a><br>
+
+                      Detailed documentation about validating/creating a session can be found <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session" target="_blank">here.</a>
                     <td>String</td>
                   </tr>
                   <tr>
@@ -357,19 +348,6 @@ PaymentButton.on("authorization", function (response) {
             label: "Tax",
             amount: { value: "2.50", currency: "USD" },
           }
-        ],
-        shippingOptions: [
-          {
-            id: "ground",
-            label: "Ground Shipping",
-            amount: { value: "5.00", currency: "USD" },
-            selected: true,
-          },
-          {
-            id: "express",
-            label: "Express Shipping",
-            amount: { value: "10.00", currency: "USD" },
-          }
         ]
       },
       // W3C spec
@@ -377,7 +355,6 @@ PaymentButton.on("authorization", function (response) {
         requestPayerEmail: true,
         requestPayerName: true,
         requestPayerPhone: false,
-        requestShipping: true
       },
       // Datatrans specific
       transaction: {
