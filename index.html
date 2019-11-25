@@ -143,8 +143,8 @@ const payment = {
   },
   // W3C spec
   options: {
-    requestPayerEmail: true,
-    requestPayerName: true,
+    requestPayerEmail: false,
+    requestPayerName: false,
     requestPayerPhone: false
   },
   // Datatrans specific
@@ -356,8 +356,8 @@ PaymentButton.on("authorization", function (response) {
       },
       // W3C spec
       options: {
-        requestPayerEmail: true,
-        requestPayerName: true,
+        requestPayerEmail: false,
+        requestPayerName: false,
         requestPayerPhone: false,
       },
       // Datatrans specific
