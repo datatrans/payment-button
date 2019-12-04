@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js"></script>
+  <script src="payment-button-local.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -76,6 +76,10 @@
                     <label class="form-switch form-inline">
                       <input type="checkbox" id="useGooglePay">
                       <i class="form-icon"></i> Use Google Pay only
+                    </label>
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="tokenOnly">
+                      <i class="form-icon"></i> Skip authorization
                     </label>
                   </div>
                   <div class="form-group col-xs-6 col-4">
@@ -168,6 +172,7 @@ PaymentButton.init({
   merchantName: 'Test',
   useGooglePay: false,
   useApplePay: false,
+  tokenOnly: false,
   auto: true,
   allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
   googlePayConfiguration: {
@@ -218,6 +223,8 @@ PaymentButton.on("authorization", function (response) {
                   <li><b>create</b> - emitted when payment button is rendered</li>
                   <li><b>authorization</b> - emitted when an authorization response has been received - <b>payload:</b>
                     authorization response</li>
+                  <li><b>token</b> - emitted when a token is returned - <b>payload:</b>
+                     payment token</li>
                   <li><b>abort</b> - emitted when the payment request has been cancelled by the user</li>
                   <li><b>unsupported</b> - emitted when no payment method is supported</li>
                   <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
@@ -255,6 +262,11 @@ PaymentButton.on("authorization", function (response) {
                   <tr>
                     <td>auto</td>
                     <td colspan="2">Determines automatically which button will be displayed (GooglePay|ApplePay)</td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>tokenOnly</td>
+                    <td colspan="2">If set to true only the payment token is returned, the authorization request is skipped </td>
                     <td>boolean</td>
                   </tr>
                   <tr>
@@ -370,7 +382,7 @@ PaymentButton.on("authorization", function (response) {
     $(document).ready(function () {
       $("#configForm").change(function (data) {
         let merchantName = "Test";
-        if (data.target.type === "checkbox" && data.target.id != "useApplePay" && data.target.id != "useGooglePay") {
+        if (data.target.type === "checkbox" && data.target.id != "useApplePay" && data.target.id != "useGooglePay" && data.target.id != "tokenOnly") {
           if (data.target.checked == true) {
             payment.options[data.target.id] = true;
           } else {
@@ -401,6 +413,7 @@ PaymentButton.on("authorization", function (response) {
             useGooglePay: false,
             useApplePay: false,
             auto: true,
+            tokenOnly: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -418,17 +431,19 @@ PaymentButton.on("authorization", function (response) {
         if (data.target.id === "useApplePay") {
           var useApplePay = false;
           var useGooglePay = false;
-          if (data.target.value === "on") {
+          var auto = true;
+          if (data.target.checked === true) {
             useApplePay = true;
-          } else {
-            useGooglePay = true;
-          }
+            auto = false;
+          } 
+
           PaymentButton.init({
             merchantId: '1000011011',
             merchantName: merchantName,
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
-            auto: false,
+            auto: auto,
+            tokenOnly: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -446,17 +461,41 @@ PaymentButton.on("authorization", function (response) {
         if (data.target.id === "useGooglePay") {
           var useApplePay = false;
           var useGooglePay = false;
-          if (data.target.value === "on") {
+          var auto = true;
+          if (data.target.checked === true) {
             useGooglePay = true;
-          } else {
-            useApplePay = true;
+            auto = false;
           }
+
           PaymentButton.init({
             merchantId: '1000011011',
             merchantName: merchantName,
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
-            auto: false,
+            auto: auto,
+            tokenOnly: false,
+            allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+            googlePayConfiguration: {
+              buttonType: "long",
+              buttonStyle: "black",
+              merchantId: "01234567890123456789"
+            },
+            applePayConfiguration: {
+              merchantIdentifier: "merchant.ch.datatrans.payment.button",
+              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
+              buttonType: "plain",
+              buttonStyle: "black"
+            }
+          });
+        }
+        if (data.target.id === "tokenOnly") {
+          PaymentButton.init({
+            merchantId: '1000011011',
+            merchantName: merchantName,
+            useGooglePay: useGooglePay,
+            useApplePay: useApplePay,
+            tokenOnly: true,
+            auto: true,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -484,6 +523,7 @@ PaymentButton.on("authorization", function (response) {
       useGooglePay: false,
       useApplePay: false,
       auto: true,
+      tokenOnly:false,
       allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
       googlePayConfiguration: {
         buttonType: "long",
@@ -509,7 +549,9 @@ PaymentButton.on("authorization", function (response) {
     PaymentButton.on("error", function (error) {
       $(".console-content").append("Error:" + JSON.stringify(error) + "<br>")
     })
-
+    PaymentButton.on("token", function (token) {
+      $(".console-content").append("Token:" + JSON.stringify(token) + "<br>")
+    })
     PaymentButton.on("unsupported", function () {
       $(".console-content").append("Payment method not supported in this browser <br>")
     })
