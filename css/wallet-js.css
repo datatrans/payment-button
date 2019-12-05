@@ -24,6 +24,7 @@ body{
     height: calc(100% - 96px);
     overflow-y:scroll;
     max-height: 250px;
+    overflow-x: scroll;
 }
 
 h2, h3{
