@@ -48,6 +48,8 @@
               below, depending on your device you will see either an ApplePay or GooglePay button. The library will
               authorize automatically and return the same response as our <a
                 href="https://api-reference.datatrans.ch/json/">JSON APIs</a>
+              
+              Please note that for ApplePay this library only works with a Datatrans merchant-id which has been enabled for ApplePay processing via Datatrans.
             </p>
           </div>
           <div class="divider"></div>
@@ -181,8 +183,6 @@ PaymentButton.init({
     merchantId: "01234567890123456789"
   },
   applePayConfiguration: {
-    merchantIdentifier: "merchant.ch.datatrans.wallet",
-    validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
     buttonType: "plain",
     buttonStyle: "black"
   }
@@ -308,21 +308,6 @@ PaymentButton.on("authorization", function (response) {
                     <th>Type</th>
                   </tr>
                   <tr>
-                    <td>merchantIdentifier</td>
-                    <td>The identifier defined by Apple </td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <td>validationURL</td>
-                    <td>Your API endpoint to validate/create an apple pay session.
-                      A sample implementation can be found
-                      <a href="https://github.com/datatrans/apple-pay-web-sample/blob/master/src/main/java/ch/datatrans/applepay/ApplePayController.java#L41" target="_blank">here.</a><br>
-                      From this endpoint, the Apple Pay session validation URL <a href="https://github.com/datatrans/apple-pay-web-sample/blob/master/src/main/java/ch/datatrans/applepay/client/ApplePayClient.java" target="_blank">needs to be called.</a><br>
-
-                      Detailed documentation about validating/creating a session can be found <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session" target="_blank">here.</a>
-                    <td>String</td>
-                  </tr>
-                  <tr>
                     <td>buttonType</td>
                     <td>The type of button, described <a
                         href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
@@ -421,8 +406,6 @@ PaymentButton.on("authorization", function (response) {
               merchantId: "01234567890123456789"
             },
             applePayConfiguration: {
-              merchantIdentifier: "merchant.ch.datatrans.payment.button",
-              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
               buttonType: "plain",
               buttonStyle: "black"
             }
@@ -451,8 +434,6 @@ PaymentButton.on("authorization", function (response) {
               merchantId: "01234567890123456789"
             },
             applePayConfiguration: {
-              merchantIdentifier: "merchant.ch.datatrans.payment.button",
-              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
               buttonType: "plain",
               buttonStyle: "black"
             }
@@ -481,8 +462,6 @@ PaymentButton.on("authorization", function (response) {
               merchantId: "01234567890123456789"
             },
             applePayConfiguration: {
-              merchantIdentifier: "merchant.ch.datatrans.payment.button",
-              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
               buttonType: "plain",
               buttonStyle: "black"
             }
@@ -503,8 +482,6 @@ PaymentButton.on("authorization", function (response) {
               merchantId: "01234567890123456789"
             },
             applePayConfiguration: {
-              merchantIdentifier: "merchant.ch.datatrans.payment.button",
-              validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
               buttonType: "plain",
               buttonStyle: "black"
             }
@@ -531,8 +508,6 @@ PaymentButton.on("authorization", function (response) {
         merchantId: "01234567890123456789"
       },
       applePayConfiguration: {
-        merchantIdentifier: "merchant.ch.datatrans.payment.button",
-        validationURL: "https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create",
         buttonType: "plain",
         buttonStyle: "black"
       }
