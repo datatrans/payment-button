@@ -18,10 +18,6 @@ PaymentButton.init({
     merchantId: '01234567890123456789'
   },
   applePayConfiguration: {
-    merchantIdentifier: 'merchant.ch.datatrans.wallet',
-    // Currently, a validation endpoint must be provided for Apple Pay.
-    // See: https://github.com/datatrans/apple-pay-web-sample
-    validationURL: 'https://apple-pay-endpoint-datatrans.herokuapp.com/api/session/create',
     buttonType: 'plain',
     buttonStyle: 'black'
   }
