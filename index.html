@@ -176,6 +176,7 @@ PaymentButton.init({
   useApplePay: false,
   tokenOnly: false,
   auto: true,
+  autoSettle: false,
   allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
   googlePayConfiguration: {
     buttonType: "long",
@@ -262,6 +263,11 @@ PaymentButton.on("authorization", function (response) {
                   <tr>
                     <td>auto</td>
                     <td colspan="2">Determines automatically which button will be displayed (GooglePay|ApplePay)</td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>autoSettle</td>
+                    <td colspan="2">Wether the transaction will be settled automatically. Setting autoSettle to true will result in <a href="https://api-reference.datatrans.ch/#the-reqtype-parameter">reqtype</a> = CAA</td>
                     <td>boolean</td>
                   </tr>
                   <tr>
@@ -426,6 +432,7 @@ PaymentButton.on("authorization", function (response) {
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
             auto: auto,
+            autoSettle: false,
             tokenOnly: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
@@ -454,6 +461,7 @@ PaymentButton.on("authorization", function (response) {
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
             auto: auto,
+            autoSettle: false,
             tokenOnly: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
@@ -475,6 +483,7 @@ PaymentButton.on("authorization", function (response) {
             useApplePay: useApplePay,
             tokenOnly: true,
             auto: true,
+            autoSettle: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -500,6 +509,7 @@ PaymentButton.on("authorization", function (response) {
       useGooglePay: false,
       useApplePay: false,
       auto: true,
+      autoSettle: false,
       tokenOnly:false,
       allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
       googlePayConfiguration: {
