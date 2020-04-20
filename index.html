@@ -523,7 +523,7 @@ PaymentButton.on("authorization", function (response) {
     PaymentButton.on("init", function () { $(".console-content").append("init event dispatched <br>"); PaymentButton.create(document.getElementById('paybutton'), payment) });
     PaymentButton.on("create", function () { $(".console-content").append("create event dispatched <br>") });
     PaymentButton.on("authorization", function (response) {
-      $(".console-content").append("authorization response:" + "<br>" + response + "<br>");
+      $(".console-content").append("authorization response:" + "<br>" + JSON.stringify(response) + "<br>");
     });
     PaymentButton.on("abort", function () {
       $(".console-content").append("Payment request aborted" + "<br>")
