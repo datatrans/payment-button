@@ -7,10 +7,10 @@ const App = <>
   <h1 style={{ fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial', color: '#213d62' }}>Datatrans Payment Button</h1>
   <h2 style={{ fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial', color: '#213d62' }}>with React</h2>
 
-  <PaymentButton config={{
-    merchantId: '1000011011',
-    merchantName: 'Test',
-    payment: {
+  <PaymentButton
+    merchantId='1000011011'
+    merchantName='Test'
+    payment={{
       // W3C spec
       details: {
         total: {
@@ -35,8 +35,7 @@ const App = <>
         countryCode: "CH",
         refno: "3e23dasdasd1123"
       }
-    }
-  }} />
+    }} />
 </>
 
 ReactDOM.render(

@@ -26,11 +26,11 @@ class PaymentButton extends Component {
   }
 
   render() {
-    return <div id='paybutton' style={{ maxWidth: '400px' }}></div>
+    return <div ref={element => this.payButton = element} style={{ maxWidth: '400px' }}></div>
   }
 
   initPaymentButton = () => {
-    const { config: { merchantId, merchantName } } = this.props
+    const { merchantId, merchantName } = this.props
     this.paymentButton = window.PaymentButton
     this.paymentButton.init({
       merchantId,
@@ -56,10 +56,10 @@ class PaymentButton extends Component {
   }
 
   bindPaymentButtonEvents = () => {
-    const { config: { payment } } = this.props
+    const { payment } = this.props
 
     this.paymentButton.on('init', () => {
-      this.paymentButton.create(document.getElementById('paybutton'), payment)
+      this.paymentButton.create(this.payButton, payment)
     })
     // bind other events here create
     // this.paymentButton.on('authorization', () => {})
