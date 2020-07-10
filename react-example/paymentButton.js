@@ -61,7 +61,7 @@ class PaymentButton extends Component {
     this.paymentButton.on('init', () => {
       this.paymentButton.create(this.payButton, payment)
     })
-    // bind other events here create
+    // bind other events:
     // this.paymentButton.on('authorization', () => {})
     // this.paymentButton.on('abort', () => {})
     // this.paymentButton.on('error', () => {})
