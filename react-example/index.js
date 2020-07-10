@@ -10,6 +10,9 @@ const App = <>
   <PaymentButton
     merchantId='1000011011'
     merchantName='Test'
+    options={{
+      allowedCardNetworks: ['MASTERCARD', 'VISA']
+    }}
     payment={{
       // W3C spec
       details: {

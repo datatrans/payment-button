@@ -4,6 +4,24 @@ const getUrl = (production) => production
   ? 'https://pay.datatrans.com/upp/payment/js/payment-button-1.0.0.min.js'
   : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js'
 
+const DEFAULT_OPTIONS = {
+  useGooglePay: false,
+  useApplePay: false,
+  auto: true,
+  autoSettle: false,
+  tokenOnly:false,
+  allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+  googlePayConfiguration: {
+    buttonType: 'long',
+    buttonStyle: 'black',
+    merchantId: '01234567890123456789'
+  },
+  applePayConfiguration: {
+    buttonType: 'plain',
+    buttonStyle: 'black'
+  }
+}
+
 class PaymentButton extends Component {
   componentDidMount() {
     const scriptSource = getUrl(this.props.production)
@@ -30,27 +48,9 @@ class PaymentButton extends Component {
   }
 
   initPaymentButton = () => {
-    const { merchantId, merchantName } = this.props
+    const { merchantId, merchantName, options} = this.props
     this.paymentButton = window.PaymentButton
-    this.paymentButton.init({
-      merchantId,
-      merchantName,
-      useGooglePay: false,
-      useApplePay: false,
-      auto: true,
-      autoSettle: false,
-      tokenOnly:false,
-      allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
-      googlePayConfiguration: {
-        buttonType: 'long',
-        buttonStyle: 'black',
-        merchantId: '01234567890123456789'
-      },
-      applePayConfiguration: {
-        buttonType: 'plain',
-        buttonStyle: 'black'
-      }
-    })
+    this.paymentButton.init({ ...DEFAULT_OPTIONS, ...options, ...{ merchantId, merchantName } })
 
     this.bindPaymentButtonEvents()
   }
