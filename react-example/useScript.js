@@ -1,10 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 
-const cachedScripts = [];
-
 const useScript = ({
   src,
-  callBack = () => {},
+  callback = () => {},
   async = true,
   defer = true,
 }) => {
@@ -13,20 +11,14 @@ const useScript = ({
 
   const handleLoaded = useCallback(() => {
     setIsLoaded(true);
-    if (callBack) {
-      callBack();
+    if (callback) {
+      callback();
     }
-  }, [setIsLoaded, callBack]);
+  }, [setIsLoaded, callback]);
 
   const handleError = useCallback(() => setHasError(true), [setHasError]);
 
   useEffect(() => {
-    if (cachedScripts.includes(src)) {
-      handleLoaded();
-      return () => {};
-    }
-    cachedScripts.push(src);
-
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = src;
@@ -36,7 +28,7 @@ const useScript = ({
     script.addEventListener("load", handleLoaded);
     script.addEventListener("error", handleError);
 
-    document.body.appendChild(script);
+    document.head.appendChild(script);
 
     return () => {
       script.removeEventListener("load", handleLoaded);
