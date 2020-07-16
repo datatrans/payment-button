@@ -39,7 +39,7 @@ const useAppleOrGooglePay = ({
 
   const bindPaymentButtonEvents = useCallback(() => {
     paymentButton?.on("init", () => {
-      paymentButton?.create(payButton?.current, payment);
+      paymentButton.create(payButton?.current, payment);
     });
     // bind other events:
     // paymentButton?.on("authorization", () => {});
@@ -63,7 +63,7 @@ const useAppleOrGooglePay = ({
   useEffect(() => {
     if (isLoaded && !hasError) {
       initPaymentButton();
-      //return () => paymentButton.destroy()
+      return () => paymentButton.destroy();
     }
     return () => {};
   }, [isLoaded, hasError, initPaymentButton]);
