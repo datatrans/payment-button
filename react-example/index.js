@@ -1,26 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-import PaymentButton from "./paymentButton";
-//import PaymentButtonWithHook from "./PaymentButtonWithHook";
+//import PaymentButton from './paymentButton'
+import PaymentButtonWithHook from './PaymentButtonWithHook'
 
-const MOCK = {
-  merchantId: "1000011011",
-  merchantName: "Test",
+const OPTIONS = {
+  merchantId: '1000011011',
+  merchantName: 'Test',
   options: {
-    allowedCardNetworks: ["MASTERCARD", "VISA"],
+    allowedCardNetworks: ['MASTERCARD', 'VISA'],
   },
   payment: {
     // W3C spec
     details: {
       total: {
-        label: "My Merchant",
-        amount: { value: "4", currency: "USD" },
+        label: 'My Merchant',
+        amount: { value: '4', currency: 'USD' },
       },
       displayItems: [
         {
-          label: "Tax",
-          amount: { value: "2.50", currency: "USD" },
+          label: 'Tax',
+          amount: { value: '2.50', currency: 'USD' },
         },
       ],
     },
@@ -32,34 +32,40 @@ const MOCK = {
     },
     // Datatrans specific
     transaction: {
-      countryCode: "CH",
-      refno: "3e23dasdasd1123",
+      countryCode: 'CH',
+      refno: '3e23dasdasd1123',
     },
   },
-};
+}
 
-const App = (
-  <>
-    <h1
-      style={{
-        fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial',
-        color: "#213d62",
-      }}
-    >
-      Datatrans Payment Button
-    </h1>
-    <h2
-      style={{
-        fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial',
-        color: "#213d62",
-      }}
-    >
-      with React
-    </h2>
+const App = () => {
+  const [isToggled, setToggled] = useState(true)
 
-    <PaymentButton {...MOCK} />
-    {/* <PaymentButtonWithHook {...MOCK} /> */}
-  </>
-);
+  return (
+    <>
+      <h1
+        style={{
+          fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial',
+          color: '#213d62',
+        }}
+      >
+        Datatrans Payment Button
+      </h1>
+      <h2
+        style={{
+          fontFamily: '"Volte-Medium", "Helvetica Neue", Helvetica, Arial',
+          color: '#213d62',
+        }}
+      >
+        with React
+      </h2>
 
-ReactDOM.render(App, document.getElementById("app"));
+      <button onClick={() => setToggled(!isToggled)}>toggle</button>
+
+      {/* <PaymentButton {...OPTIONS} /> */}
+      {isToggled && <PaymentButtonWithHook {...OPTIONS} />}
+    </>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('app'))
