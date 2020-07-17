@@ -106,7 +106,7 @@ const useAppleOrGooglePay = ({
     }
 
     return () => {}
-  }, [isLoaded, hasError, paymentButton])
+  }, [isLoaded, hasError, paymentButton, payButton])
 
   return [payButton]
 }
