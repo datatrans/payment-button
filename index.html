@@ -226,7 +226,7 @@ PaymentButton.on("authorization", function (response) {
                 </ul>
               </div>
               <div class="col-md-6 col-xs-12 column">
-                <h4>Options</h4>
+                <h4>Options and parameters</h4>
                 <table class="table table-scroll">
                   <tr>
                     <th>Option</th>
@@ -297,7 +297,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String</td>
                   </tr>
                   <tr>
-                    <td rowspan="5">applePayConfiguration</td>
+                    <td rowspan="3">applePayConfiguration</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -313,6 +313,19 @@ PaymentButton.on("authorization", function (response) {
                     <td>buttonStyle</td>
                     <td>The style of the button, described <a
                         href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2">Payment Request - transaction</td>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                  </tr>
+                  <tr>
+                    <td>refno</td>
+                    <td>Your reference number. Find out more <a
+                        href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
                     </td>
                     <td>String</td>
                   </tr>
