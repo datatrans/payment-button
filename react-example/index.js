@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-//import PaymentButton from './paymentButton'
+// import PaymentButton from './paymentButton'
 import PaymentButtonWithHook from './PaymentButtonWithHook'
 
 const OPTIONS = {
