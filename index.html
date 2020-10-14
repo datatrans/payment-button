@@ -404,6 +404,7 @@ PaymentButton.on("authorization", function (response) {
             merchantId: '1000011011',
             merchantName: merchantName,
             tokenOnly: false,
+            auto: true,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -479,6 +480,7 @@ PaymentButton.on("authorization", function (response) {
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
             tokenOnly: true,
+            auto: true,
             autoSettle: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
@@ -503,6 +505,7 @@ PaymentButton.on("authorization", function (response) {
       merchantId: '1000011011',
       merchantName: 'Test',
       autoSettle: false,
+      auto: true,
       tokenOnly:false,
       allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
       googlePayConfiguration: {
