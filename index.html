@@ -245,13 +245,12 @@ PaymentButton.on("authorization", function (response) {
                   </tr>
                   <tr>
                     <td>useGooglePay</td>
-                    <td colspan="2">Wether to use GooglePay only. Note: GooglePay will not be displayed within Safari
-                      browsers currently when the PaymentRequest API is used</td>
+                    <td colspan="2">Use this property to disable Google Pay. Note: By default Google Pay is enabled if supported by the browser</td>
                     <td>boolean</td>
                   </tr>
                   <tr>
                     <td>useApplePay</td>
-                    <td colspan="2">Use ApplePay only. Note: Apple Pay can only be displayed in Safari browsers.</td>
+                    <td colspan="2">Use this property to disable Apple Pay. Note: Apple Pay can only be displayed in Safari browsers. Note: By default Apple Pay is enabled if supported by the browser</td>
                     <td>boolean</td>
                   </tr>
                   <tr>
@@ -404,7 +403,6 @@ PaymentButton.on("authorization", function (response) {
             merchantId: '1000011011',
             merchantName: merchantName,
             tokenOnly: false,
-            auto: true,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
               buttonType: "long",
@@ -420,13 +418,10 @@ PaymentButton.on("authorization", function (response) {
         if (data.target.id === "useApplePay") {
           var useApplePay = false;
           var useGooglePay = false;
-          var auto = true;
+
           if (data.target.checked === true) {
             useApplePay = true;
-            auto = false;
-          } 
-
-          PaymentButton.init({
+            PaymentButton.init({
             merchantId: '1000011011',
             merchantName: merchantName,
             useGooglePay: useGooglePay,
@@ -444,17 +439,34 @@ PaymentButton.on("authorization", function (response) {
               buttonStyle: "black"
             }
           });
+          } else {
+            PaymentButton.init({
+              merchantId: '1000011011',
+              merchantName: 'Test',
+              autoSettle: false,
+              tokenOnly: false,
+              allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+              googlePayConfiguration: {
+                buttonType: "long",
+                buttonStyle: "black",
+                merchantId: "01234567890123456789"
+              },
+              applePayConfiguration: {
+                buttonType: "plain",
+                buttonStyle: "black"
+              }
+            });
+          }
+
+        
         }
         if (data.target.id === "useGooglePay") {
           var useApplePay = false;
           var useGooglePay = false;
-          var auto = true;
+
           if (data.target.checked === true) {
             useGooglePay = true;
-            auto = false;
-          }
-
-          PaymentButton.init({
+            PaymentButton.init({
             merchantId: '1000011011',
             merchantName: merchantName,
             useGooglePay: useGooglePay,
@@ -472,6 +484,26 @@ PaymentButton.on("authorization", function (response) {
               buttonStyle: "black"
             }
           });
+          }else{
+            PaymentButton.init({
+              merchantId: '1000011011',
+              merchantName: 'Test',
+              autoSettle: false,
+              tokenOnly: false,
+              allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+              googlePayConfiguration: {
+                buttonType: "long",
+                buttonStyle: "black",
+                merchantId: "01234567890123456789"
+              },
+              applePayConfiguration: {
+                buttonType: "plain",
+                buttonStyle: "black"
+              }
+            });
+          }
+
+         
         }
         if (data.target.id === "tokenOnly") {
           PaymentButton.init({
@@ -480,7 +512,6 @@ PaymentButton.on("authorization", function (response) {
             useGooglePay: useGooglePay,
             useApplePay: useApplePay,
             tokenOnly: true,
-            auto: true,
             autoSettle: false,
             allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
             googlePayConfiguration: {
@@ -505,7 +536,6 @@ PaymentButton.on("authorization", function (response) {
       merchantId: '1000011011',
       merchantName: 'Test',
       autoSettle: false,
-      auto: true,
       tokenOnly:false,
       allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
       googlePayConfiguration: {
