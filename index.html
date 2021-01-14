@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js"></script>
+  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-2.0.0.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -162,7 +162,7 @@ const payment = {
                 <h4>2) Initialize the library</h4>
                 <pre class="code" data-lang="JS">
                   <code>
-&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js" type="text/javascript"&gt;&lt;/script&gt;</code>
+&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-2.0.0.js" type="text/javascript"&gt;&lt;/script&gt;</code>
                 </pre>
                 <pre class="code" data-lang="JS">
                   <code>
@@ -316,7 +316,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String</td>
                   </tr>
                   <tr>
-                    <td rowspan="2">Payment Request - transaction</td>
+                    <td rowspan="3">Payment Request - transaction</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -325,6 +325,12 @@ PaymentButton.on("authorization", function (response) {
                     <td>refno</td>
                     <td>Your reference number. Find out more <a
                         href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
+                    </td>
+                    <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>countryCode</td>
+                    <td>ISO 3166-1 alpha-2 country code where the transaction is processed. This is required for merchants based in European Economic Area (EEA) countries. <b>Mandatory </b> for payment-button-v2 library.
                     </td>
                     <td>String</td>
                   </tr>
