@@ -316,7 +316,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String</td>
                   </tr>
                   <tr>
-                    <td rowspan="2">Payment Request - transaction</td>
+                    <td rowspan="4">Payment Request - transaction</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -327,6 +327,18 @@ PaymentButton.on("authorization", function (response) {
                         href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
                     </td>
                     <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>createAlias</td>
+                    <td>Whether to create an alias
+                    </td>
+                    <td>boolean</td>
+                  </tr>
+                  <tr>
+                    <td>authenticationOnly</td>
+                    <td>Only authenticate the transaction (used for deferred authorization)
+                    </td>
+                    <td>boolean</td>
                   </tr>
                 </table>
               </div>
