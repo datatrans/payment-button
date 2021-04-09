@@ -73,12 +73,12 @@
                       <i class="form-icon"></i> Use Apple Pay only
                     </label>
                     <label class="form-switch form-inline">
-                      <input type="checkbox" id="useGooglePay">
-                      <i class="form-icon"></i> Use Google Pay only
+                      <input type="checkbox" id="createAlias">
+                      <i class="form-icon"></i> Create Alias
                     </label>
                     <label class="form-switch form-inline">
-                      <input type="checkbox" id="tokenOnly">
-                      <i class="form-icon"></i> Skip authorization
+                      <input type="checkbox" id="useGooglePay">
+                      <i class="form-icon"></i> Use Google Pay only
                     </label>
                   </div>
                   <div class="form-group col-xs-6 col-4">
@@ -218,8 +218,6 @@ PaymentButton.on("authorization", function (response) {
                   <li><b>create</b> - emitted when payment button is rendered</li>
                   <li><b>authorization</b> - emitted when an authorization response has been received - <b>payload:</b>
                     authorization response</li>
-                  <li><b>token</b> - emitted when a token is returned - <b>payload:</b>
-                     payment token</li>
                   <li><b>abort</b> - emitted when the payment request has been cancelled by the user</li>
                   <li><b>unsupported</b> - emitted when no payment method is supported</li>
                   <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
@@ -256,11 +254,6 @@ PaymentButton.on("authorization", function (response) {
                   <tr>
                     <td>autoSettle</td>
                     <td colspan="2">Wether the transaction will be settled automatically. Default is false.</td>
-                    <td>boolean</td>
-                  </tr>
-                  <tr>
-                    <td>tokenOnly</td>
-                    <td colspan="2">If set to true only the payment token is returned, the authorization request is skipped </td>
                     <td>boolean</td>
                   </tr>
                   <tr>
@@ -330,7 +323,7 @@ PaymentButton.on("authorization", function (response) {
                   </tr>
                   <tr>
                     <td>createAlias</td>
-                    <td>Whether to create an alias
+                    <td>Whether to create an alias. The alias will be sent on the <a href="https://api-reference.datatrans.ch/#section/Webhook">webhook </a> and is also returned through a <a href="https://api-reference.datatrans.ch/#operation/status">status call. </a> 
                     </td>
                     <td>boolean</td>
                   </tr>
@@ -385,7 +378,8 @@ PaymentButton.on("authorization", function (response) {
       // Datatrans specific
       transaction: {
         countryCode: "CH",
-        refno: "3e23dasdasd1123"
+        refno: "3e23dasdasd1123",
+        createAlias:false
       }
     };
 
@@ -523,25 +517,9 @@ PaymentButton.on("authorization", function (response) {
 
          
         }
-        if (data.target.id === "tokenOnly") {
-          PaymentButton.init({
-            merchantId: '1000011011',
-            merchantName: merchantName,
-            useGooglePay: useGooglePay,
-            useApplePay: useApplePay,
-            tokenOnly: true,
-            autoSettle: false,
-            allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
-            googlePayConfiguration: {
-              buttonType: "long",
-              buttonStyle: "black",
-              merchantId: "01234567890123456789"
-            },
-            applePayConfiguration: {
-              buttonType: "plain",
-              buttonStyle: "black"
-            }
-          });
+        if (data.target.id === "createAlias") {
+          payment.transaction.createAlias = true;
+          PaymentButton.create(document.getElementById('paybutton'), payment);
         }
       })
 
