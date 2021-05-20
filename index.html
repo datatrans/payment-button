@@ -431,6 +431,8 @@ PaymentButton.on("authorization", function (response) {
           var useApplePay = false;
           var useGooglePay = false;
 
+          $("#paybutton").empty();
+
           if (data.target.checked === true) {
             useApplePay = true;
             PaymentButton.init({
@@ -475,6 +477,8 @@ PaymentButton.on("authorization", function (response) {
         if (data.target.id === "useGooglePay") {
           var useApplePay = false;
           var useGooglePay = false;
+
+          $("#paybutton").empty();
 
           if (data.target.checked === true) {
             useGooglePay = true;
