@@ -309,7 +309,7 @@ PaymentButton.on("authorization", function (response) {
                     <td>String</td>
                   </tr>
                   <tr>
-                    <td rowspan="5">Payment Request - transaction</td>
+                    <td rowspan="6">Payment Request - transaction</td>
                     <th>Option</th>
                     <th>Description</th>
                     <th>Type</th>
@@ -338,6 +338,12 @@ PaymentButton.on("authorization", function (response) {
                     <td>ISO 3166-1 alpha-2 country code where the transaction is processed. This is required for merchants based in European Economic Area (EEA) countries. <b>Mandatory </b> for payment-button-v2 library.
                     </td>
                     <td>String</td>
+                  </tr>
+                  <tr>
+                    <td>jsonWebhook</td>
+                    <td>Optional parameter to receive the webhook in JSON format
+                    </td>
+                    <td>boolean</td>
                   </tr>
                 </table>
               </div>
