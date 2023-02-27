@@ -1,6 +1,22 @@
-const scrollConsole = () => {
-  document.querySelector('.console-content').scrollTop =
-    document.querySelector('.console-content').scrollHeight;
+const EVENTS = {
+  init: 'init event dispatched',
+  create: 'create event dispatched',
+  authorization: 'authorization response: ',
+  abort: 'Payment request aborted',
+  error: 'Error: ',
+  token: 'Token: ',
+  unsupported: 'Payment method not supported in this browser'
+}
+
+const consoleOutput = (e, response) => {
+  window.test = response
+  const formattedResponse = (response ? '</div>' +
+    '<div class="column col-ml-auto"><pre class="code-wrapper"><code class="language-javascript">' +
+    JSON.stringify(response) +
+    '</code></pre>' : '')
+
+  $('.console-content').append('<div class="columns col-oneline"><div class="column col-auto">' + EVENTS[e] + formattedResponse + '</div></div>');
+  document.querySelector('.console-content').scrollTop = document.querySelector('.console-content').scrollHeight;
 };
 
 const payment = {
@@ -56,8 +72,7 @@ $(document).ready(function () {
       data.target.type === 'checkbox' &&
       data.target.id !== 'useApplePay' &&
       data.target.id !== 'useGooglePay' &&
-      data.target.id !== 'tokenOnly' &&
-      data.target.id !== 'showToken'
+      data.target.id !== 'tokenOnly'
     ) {
       if (data.target.checked === true) {
         payment.options[data.target.id] = true;
@@ -106,56 +121,33 @@ $(document).ready(function () {
       })
     }
 
+    if (data.target.id === 'tokenOnly') {
+      $('#paybutton').empty();
+      PaymentButton.init({
+        ...buttonOptions,
+        tokenOnly: !!data.target.checked
+      })
+    }
+
     if (data.target.id === 'createAlias') {
       payment.transaction.createAlias = true;
       PaymentButton.create(document.getElementById('paybutton'), payment);
     }
   });
 
-  $('#clearButton').click(function () {
-    $('.console-content').empty();
-    scrollConsole();
-  });
+  $('#clearButton').click(() => $('.console-content').empty());
 
   PaymentButton.init(buttonOptions);
 
   PaymentButton.on('init', function () {
     $('.console-content').append('init event dispatched <br>');
     PaymentButton.create(document.getElementById('paybutton'), payment);
-    scrollConsole();
   });
 
-  PaymentButton.on('create', function () {
-    $('.console-content').append('create event dispatched <br>');
-    scrollConsole();
-  });
-
-  PaymentButton.on('authorization', function (response) {
-    $('.console-content').append(
-      'authorization response:' + '<br>' + JSON.stringify(response) + '<br>'
-    );
-    scrollConsole();
-  });
-
-  PaymentButton.on('abort', function () {
-    $('.console-content').append('Payment request aborted' + '<br>');
-    scrollConsole();
-  });
-
-  PaymentButton.on('error', function (error) {
-    $('.console-content').append('Error:' + JSON.stringify(error) + '<br>');
-    scrollConsole();
-  });
-
-  PaymentButton.on('token', function (token) {
-    $('.console-content').append('Token:' + JSON.stringify(token) + '<br>');
-    scrollConsole();
-  });
-
-  PaymentButton.on('unsupported', function () {
-    $('.console-content').append(
-      'Payment method not supported in this browser <br>'
-    );
-    scrollConsole();
-  });
+  PaymentButton.on('create', () => consoleOutput('create'))
+  PaymentButton.on('authorization', response => consoleOutput('authorization', response))
+  PaymentButton.on('abort', () => consoleOutput('abort'))
+  PaymentButton.on('error', response => consoleOutput('error', response))
+  PaymentButton.on('token', response => consoleOutput('token', response?.token?.details?.paymentMethodData?.tokenizationData?.token))
+  PaymentButton.on('unsupported', () => consoleOutput('unsupported'))
 });

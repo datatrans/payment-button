@@ -53,10 +53,10 @@
       <div class="col-12 column" id="demo">
         <h3>Configure and test the example </h3>
         <div class="columns">
-          <div class="col-md-6 col-xs-12 column">
+          <div class="col-3 col-xl-6 col-md-12 column">
             <form class="form-horizontal" id="configForm">
               <div class="columns" style="flex-direction: column">
-                <div class="col-md-6 col-xs-12 column">
+                <div class="col-md-6 col-xs-12 column mb-2">
                   <div class="form-group">
                     <label class="form-switch form-inline">
                       <input type="checkbox" id="useApplePay">
@@ -69,11 +69,11 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 col-xs-12 column">
+                <div class="col-md-6 col-xs-12 column mb-2">
                   <div class="form-group">
                     <label class="form-switch form-inline">
                       <input type="checkbox" id="requestPayerEmail">
-                      <i class="form-icon"></i> Request Buyer E-mail
+                      <i class="form-icon"></i> Request Payer E-mail
                     </label>
                     <label class="form-switch form-inline">
                       <input type="checkbox" id="requestPayerName">
@@ -93,21 +93,21 @@
                       <i class="form-icon"></i> Create Alias
                     </label>
                     <label class="form-switch form-inline">
-                      <input type="checkbox" id="showToken">
-                      <i class="form-icon"></i> Show token
+                      <input type="checkbox" id="tokenOnly">
+                      <i class="form-icon"></i> Output Token Data
                     </label>
                   </div>
                 </div>
               </div>
-              <div class="form-group col-xs-6 col-4">
+              <div class="form-group">
                 <label class="form-label" for="merchantName">Merchant Name</label>
                 <input class="form-input" type="text" id="merchantName" placeholder="Merchant Name">
               </div>
-              <div class="form-group col-4">
+              <div class="form-group">
                 <label class="form-label" for="amount">Amount</label>
                 <input class="form-input" type="text" pattern="[0-9]*" id="amount" placeholder="Amount">
               </div>
-              <div class="form-group col-4">
+              <div class="form-group">
                 <label class="form-label" for="currency">Currency</label>
                 <select class="form-select" id="currency">
                   <option value="CHF">CHF</option>
@@ -118,11 +118,11 @@
             </form>
           </div>
 
-          <div class="column col-md-5 col-xs-12 mb-2 pb-2">
+          <div class="column col-md-12 mb-2 pb-2">
             <h4>Events output</h4>
-            <div class="console p-relative bg-gray mb-2">
+            <div class="console p-relative bg-gray mb-2" style="min-height: 70px;">
               <div class="console-content p-2"></div>
-              <i id="clearButton" class="p-absolute icon icon-2x icon-delete" style="bottom: 10px; right: 20px;"></i>
+              <i id="clearButton" class="p-absolute icon icon-2x icon-delete" style="bottom: 20px; right: 20px;"></i>
             </div>
             <div id="paybutton" class="p-relative mb-2 pb-2"></div>
           </div>
@@ -208,7 +208,7 @@ const payment = {
         <div>
           <h2>Reference</h2>
           <div class="columns reference" id="reference">
-            <div class="col-md-6 col-xs-12 column">
+            <div class="col-3 col-xl-12 column mb-2">
               <h4>Events</h4>
               Following events will be emmited by the library
               <ul>
@@ -221,108 +221,109 @@ const payment = {
                 <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
               </ul>
             </div>
-            <div class="col-md-6 col-xs-12 column">
+            <div class="col-9 col-xl-12 column">
               <h4>Options and parameters</h4>
-              <table class="table table-scroll">
-                <tr>
+              <table class="table">
+                <thead><tr>
                   <th>Option</th>
                   <th colspan="2">Description</th>
-                  <th>Data type</th>
-                </tr>
+                  <th style="white-space: nowrap;">Data type</th>
+                </tr></thead>
+                <tbody>
                 <tr>
-                  <td>merchantId</td>
+                  <th>merchantId</th>
                   <td colspan="2">Your datatrans merchantId</td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>merchantName</td>
+                  <th>merchantName</th>
                   <td colspan="2">Your merchant name</td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>useGooglePay</td>
+                  <th>useGooglePay</th>
                   <td colspan="2">Use this property to disable Google Pay. Note: By default Google Pay is enabled if
                     supported by the browser</td>
                   <td>boolean</td>
                 </tr>
                 <tr>
-                  <td>useApplePay</td>
+                  <th>useApplePay</th>
                   <td colspan="2">Use this property to disable Apple Pay. Note: Apple Pay can only be displayed in
                     Safari browsers. Note: By default Apple Pay is enabled if supported by the browser</td>
                   <td>boolean</td>
                 </tr>
                 <tr>
-                  <td>autoSettle</td>
+                  <th>autoSettle</th>
                   <td colspan="2">Wether the transaction will be settled automatically. Default is false.</td>
                   <td>boolean</td>
                 </tr>
                 <tr>
-                  <td>allowedCardNetworks</td>
+                  <th>allowedCardNetworks</th>
                   <td colspan="2">Which cardnetworks to accept</td>
-                  <td>String array</td>
+                  <td style="white-space: nowrap;">String array</td>
                 </tr>
                 <tr>
-                  <td rowspan="4">googlePayConfiguration</td>
+                  <th rowspan="4">googlePayConfiguration</th>
                   <th>Option</th>
                   <th>Description</th>
                   <th>Type</th>
                 </tr>
                 <tr>
-                  <td>buttonType</td>
+                  <th>buttonType</th>
                   <td>The type of button, described <a
                       href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>buttonStyle</td>
+                  <th>buttonStyle</th>
                   <td>The style of button, described <a
                       href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>merchantId</td>
+                  <th>merchantId</th>
                   <td>Your google pay merchantId. Can be found in the Google Pay <a
                       href="https://pay.google.com/business/console">merchant console</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td rowspan="3">applePayConfiguration</td>
+                  <th rowspan="3">applePayConfiguration</th>
                   <th>Option</th>
                   <th>Description</th>
                   <th>Type</th>
                 </tr>
                 <tr>
-                  <td>buttonType</td>
+                  <th>buttonType</th>
                   <td>The type of button, described <a
                       href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>buttonStyle</td>
+                  <th>buttonStyle</th>
                   <td>The style of the button, described <a
                       href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td rowspan="5">Payment Request - transaction</td>
+                  <th rowspan="5">Payment Request - transaction</th>
                   <th>Option</th>
                   <th>Description</th>
                   <th>Type</th>
                 </tr>
                 <tr>
-                  <td>refno</td>
+                  <th>refno</th>
                   <td>Your reference number. Find out more <a
                       href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
                   </td>
                   <td>String</td>
                 </tr>
                 <tr>
-                  <td>createAlias</td>
+                  <th>createAlias</th>
                   <td>Whether to create an alias. The alias will be sent on the <a
                       href="https://api-reference.datatrans.ch/#section/Webhook">webhook </a> and is also returned
                     through a <a href="https://api-reference.datatrans.ch/#operation/status">status call. </a>
@@ -330,30 +331,31 @@ const payment = {
                   <td>boolean</td>
                 </tr>
                 <tr>
-                  <td>authenticationOnly</td>
+                  <th>authenticationOnly</th>
                   <td>Only authenticate the transaction (used for deferred authorization)
                   </td>
                   <td>boolean</td>
                 </tr>
                 <tr>
-                  <td>countryCode</td>
+                  <th>countryCode</th>
                   <td>ISO 3166-1 alpha-2 country code where the transaction is processed. This is required for merchants
                     based in European Economic Area (EEA) countries. <b>Mandatory </b> for payment-button-v2 library.
                   </td>
                   <td>String</td>
                 </tr>
+              </tbody>
               </table>
             </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <script>
-              window.Prism = window.Prism || {};
-              window.Prism.manual = true;
-              </script>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="./index.js"></script>
-
+  <script src="./index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+  </script>
 </body>
