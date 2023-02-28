@@ -148,6 +148,6 @@ $(document).ready(function () {
   PaymentButton.on('authorization', response => consoleOutput('authorization', response))
   PaymentButton.on('abort', () => consoleOutput('abort'))
   PaymentButton.on('error', response => consoleOutput('error', response))
-  PaymentButton.on('token', response => consoleOutput('token', response?.token?.details?.paymentMethodData?.tokenizationData?.token))
+  PaymentButton.on('token', response => consoleOutput('token', response?.token))
   PaymentButton.on('unsupported', () => consoleOutput('unsupported'))
 });
