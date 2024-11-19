@@ -19,6 +19,11 @@ const consoleOutput = (e, response) => {
   document.querySelector('.console-content').scrollTop = document.querySelector('.console-content').scrollHeight;
 };
 
+let taxItem = {
+  label: 'Tax',
+  amount: { value: '2.50', currency: 'USD' }
+};
+
 const payment = {
   // W3C spec
   details: {
@@ -27,10 +32,7 @@ const payment = {
       amount: { value: '4', currency: 'USD' },
     },
     displayItems: [
-      {
-        label: 'Tax',
-        amount: { value: '2.50', currency: 'USD' },
-      },
+      taxItem
     ],
   },
   // W3C spec
@@ -89,6 +91,7 @@ $(document).ready(function () {
 
     if (data.target.id === 'currency') {
       payment.details.total.amount.currency = data.target.value;
+      taxItem.amount.currency = data.target.value;
       PaymentButton.create(document.getElementById('paybutton'), payment);
     }
 
