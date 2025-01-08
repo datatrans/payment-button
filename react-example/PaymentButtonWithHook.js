@@ -91,7 +91,9 @@ const useAppleOrGooglePay = ({
       // bind other events:
       // paymentButton.on("authorization", () => {});
       // paymentButton.on('abort', () => {})
-      // paymentButton.on("error", () => {});
+      paymentButton.on('error', (err) => {
+        console.error(err)
+      });
       // paymentButton.on('token', () => {})
       // paymentButton.on('unsupported', () => {})
 
