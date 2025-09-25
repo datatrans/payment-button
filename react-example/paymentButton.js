@@ -5,8 +5,8 @@ const getUrl = (production) => production
   : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js'
 
 const DEFAULT_OPTIONS = {
-  useGooglePay: false,
-  useApplePay: false,
+  useGooglePay: true,
+  useApplePay: true,
   auto: true,
   autoSettle: false,
   tokenOnly:false,

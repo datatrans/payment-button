@@ -8,8 +8,8 @@ Render Apple Pay and Google Pay buttons for payments via Datatrans. Buttons are 
 PaymentButton.init({
   merchantId: '1100002476',
   merchantName: 'Test',
-  useGooglePay: false,
-  useApplePay: false,
+  useGooglePay: true,
+  useApplePay: true,
   auto: true,
   allowedCardNetworks: ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
   googlePayConfiguration: {
