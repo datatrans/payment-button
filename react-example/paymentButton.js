@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 const getUrl = (production) => production
-  ? 'https://pay.datatrans.com/upp/payment/js/payment-button-1.0.0.min.js'
-  : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js'
+  ? 'https://pay.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
+  : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
 
 const DEFAULT_OPTIONS = {
   useGooglePay: true,
@@ -49,7 +49,9 @@ class PaymentButton extends Component {
 
   initPaymentButton = () => {
     const { merchantId, merchantName, options} = this.props
-    this.paymentButton = window.PaymentButton
+    const PaymentButton = window.PaymentButton
+
+    this.paymentButton = new PaymentButton()
     this.paymentButton.init({ ...DEFAULT_OPTIONS, ...options, ...{ merchantId, merchantName } })
 
     this.bindPaymentButtonEvents()

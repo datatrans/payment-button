@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 const getUrl = (production) =>
   production
-    ? 'https://pay.datatrans.com/upp/payment/js/payment-button-1.0.0.min.js'
-    : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-1.0.0.js'
+    ? 'https://pay.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
+    : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
 
 const DEFAULT_OPTIONS = {
   useGooglePay: true,
@@ -80,35 +80,46 @@ const useAppleOrGooglePay = ({
   const scriptSource = getUrl(production)
   const [isLoaded, hasError] = useScript({ src: scriptSource })
   const payButton = useRef(null)
-  const paymentButton = window?.PaymentButton
 
   useEffect(() => {
-    if (isLoaded && !hasError && paymentButton && payButton) {
-      paymentButton.on('init', () => {
-        paymentButton.create(payButton.current, payment)
-      })
-
-      // bind other events:
-      // paymentButton.on("authorization", () => {});
-      // paymentButton.on('abort', () => {})
-      paymentButton.on('error', (err) => {
-        console.error(err)
-      });
-      // paymentButton.on('token', () => {})
-      // paymentButton.on('unsupported', () => {})
-
-      paymentButton.init({
-        ...DEFAULT_OPTIONS,
-        ...options,
-        merchantId,
-        merchantName,
-      })
-
-      return () => paymentButton.destroy()
+    const PaymentButton = window.PaymentButton
+    if (
+      !isLoaded ||
+      hasError ||
+      !payButton.current ||
+      typeof PaymentButton !== 'function'
+    ) {
+      return () => {}
     }
 
-    return () => {}
-  }, [isLoaded, hasError, paymentButton, payButton])
+    const paymentButton1 = new PaymentButton()
+
+    paymentButton1.on('init', () => {
+      paymentButton1.create(payButton.current, payment)
+    })
+
+    // bind other events:
+    // paymentButton1.on("authorization", () => {})
+    // paymentButton1.on('abort', () => {})
+    paymentButton1.on('error', (err) => {
+      console.error(err)
+    })
+    // paymentButton1.on('token', () => {})
+    // paymentButton1.on('unsupported', () => {})
+
+    paymentButton1.init({
+      ...DEFAULT_OPTIONS,
+      ...options,
+      merchantId,
+      merchantName,
+    })
+
+    return () => {
+      if (typeof paymentButton1.destroy === 'function') {
+        paymentButton1.destroy()
+      }
+    }
+  }, [isLoaded, hasError, merchantId, merchantName, options, payment])
 
   return [payButton]
 }

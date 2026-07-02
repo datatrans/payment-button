@@ -68,6 +68,12 @@ const buttonOptions = {
 
 $(document).ready(function () {
   const PaymentButton = window.PaymentButton;
+  if (typeof PaymentButton !== 'function') {
+    console.error('PaymentButton library is not loaded');
+    return;
+  }
+
+  const paymentButton1 = new PaymentButton();
 
   $('#configForm').change(function (data) {
     if (
@@ -81,18 +87,18 @@ $(document).ready(function () {
       } else {
         payment.options[data.target.id] = false;
       }
-      PaymentButton.create(document.getElementById('paybutton'), payment);
+      paymentButton1.create(document.getElementById('paybutton'), payment);
     }
 
     if (data.target.id === 'amount') {
       payment.details.total.amount.value = data.target.value;
-      PaymentButton.create(document.getElementById('paybutton'), payment);
+      paymentButton1.create(document.getElementById('paybutton'), payment);
     }
 
     if (data.target.id === 'currency') {
       payment.details.total.amount.currency = data.target.value;
       taxItem.amount.currency = data.target.value;
-      PaymentButton.create(document.getElementById('paybutton'), payment);
+      paymentButton1.create(document.getElementById('paybutton'), payment);
     }
 
     if (data.target.id === 'merchantName') {
@@ -100,7 +106,7 @@ $(document).ready(function () {
 
       payment.details.total.label = data.target.value;
 
-      PaymentButton.init({
+      paymentButton1.init({
         ...buttonOptions,
         merchantName
       });
@@ -109,7 +115,7 @@ $(document).ready(function () {
     if (data.target.id === 'useApplePay') {
       $('#paybutton').empty();
       const options = data.target.checked ? { useGooglePay: false, useApplePay: true } : {}
-      PaymentButton.init({
+      paymentButton1.init({
         ...buttonOptions,
         ...options
       })
@@ -118,7 +124,7 @@ $(document).ready(function () {
     if (data.target.id === 'useGooglePay') {
       $('#paybutton').empty();
       const options = data.target.checked ? { useGooglePay: true, useApplePay: false } : {}
-      PaymentButton.init({
+      paymentButton1.init({
         ...buttonOptions,
         ...options
       })
@@ -126,7 +132,7 @@ $(document).ready(function () {
 
     if (data.target.id === 'tokenOnly') {
       $('#paybutton').empty();
-      PaymentButton.init({
+      paymentButton1.init({
         ...buttonOptions,
         tokenOnly: !!data.target.checked
       })
@@ -134,23 +140,23 @@ $(document).ready(function () {
 
     if (data.target.id === 'createAlias') {
       payment.transaction.createAlias = true;
-      PaymentButton.create(document.getElementById('paybutton'), payment);
+      paymentButton1.create(document.getElementById('paybutton'), payment);
     }
   });
 
   $('#clearButton').click(() => $('.console-content').empty());
 
-  PaymentButton.init(buttonOptions);
+  paymentButton1.init(buttonOptions);
 
-  PaymentButton.on('init', function () {
+  paymentButton1.on('init', function () {
     $('.console-content').append('init event dispatched <br>');
-    PaymentButton.create(document.getElementById('paybutton'), payment);
+    paymentButton1.create(document.getElementById('paybutton'), payment);
   });
 
-  PaymentButton.on('create', () => consoleOutput('create'))
-  PaymentButton.on('authorization', response => consoleOutput('authorization', response))
-  PaymentButton.on('abort', () => consoleOutput('abort'))
-  PaymentButton.on('error', response => consoleOutput('error', response))
-  PaymentButton.on('token', response => consoleOutput('token', response?.token))
-  PaymentButton.on('unsupported', () => consoleOutput('unsupported'))
+  paymentButton1.on('create', () => consoleOutput('create'))
+  paymentButton1.on('authorization', response => consoleOutput('authorization', response))
+  paymentButton1.on('abort', () => consoleOutput('abort'))
+  paymentButton1.on('error', response => consoleOutput('error', response))
+  paymentButton1.on('token', response => consoleOutput('token', response?.token))
+  paymentButton1.on('unsupported', () => consoleOutput('unsupported'))
 });
