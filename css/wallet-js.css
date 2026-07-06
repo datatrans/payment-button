@@ -1,9 +1,9 @@
-body{
+body {
     background-color: white;
-    padding-top:10px;
+    padding-top: 10px;
 }
 
-.reference{
+.reference {
     text-align: left;
 }
 
@@ -11,13 +11,13 @@ body{
     text-align: left
 }
 
-.sidebar{
+.sidebar {
     list-style: none;
     position: fixed;
 }
 
-.sidebar a{
-    color:#2e2e2d;
+.sidebar a {
+    color: #2e2e2d;
 }
 
 .console-content {
@@ -27,7 +27,7 @@ body{
     overflow-x: auto;
 }
 
-h2, h3{
+h2, h3 {
     color: #213d62;
 }
 
@@ -61,8 +61,20 @@ pre code {
     word-break: break-all;
 }
 
+.table th.indent-1 {
+    padding-left: 1.3rem;
+}
+
+.table th.indent-2 {
+    padding-left: 2.6rem;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 @media only screen and (min-width: 600px) {
-    #paybutton{
+    #paybutton {
         width: 50%;
     }
 }
