@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.0.0.js"></script>
+  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -114,6 +114,13 @@
                   <option value="EUR">EUR</option>
                 </select>
               </div>
+              <div class="form-group">
+                <label class="form-label" for="version">Transaction API version</label>
+                <select class="form-select" id="version">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
             </form>
           </div>
 
@@ -172,7 +179,7 @@ const payment = {
           </div>
           <div class="col-12 column">
             <h4>2) Initialize the library</h4>
-            <pre><code class="language-markup">&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.0.0.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+            <pre><code class="language-markup">&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
             <pre><code class="language-javascript">
 const paymentButton = new PaymentButton();
 
@@ -325,6 +332,7 @@ paymentButton.init({
                 <thead>
                   <tr>
                     <th>Option</th>
+                    <th>Since</th>
                     <th>Description</th>
                     <th class="nowrap">Data type</th>
                   </tr>
@@ -335,6 +343,7 @@ paymentButton.init({
                       refno
                       <div class="text-error text-small">required</div>
                     </th>
+                    <td>v1.0</td>
                     <td>
                       Your reference number. Find out more
                       <a href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
@@ -346,6 +355,7 @@ paymentButton.init({
                       countryCode
                       <div class="text-error text-small">required</div>
                     </th>
+                    <td>v1.0</td>
                     <td>
                       <div>ISO 3166-1 alpha-2 country code where the transaction is processed.</div>
                       <div>This is required for merchants based in European Economic Area (EEA) countries.</div>
@@ -355,6 +365,7 @@ paymentButton.init({
                   </tr>
                   <tr>
                     <th>createAlias</th>
+                    <td>v1.0</td>
                     <td>
                       <div>Whether to create an alias.</div>
                       <div>
@@ -366,21 +377,34 @@ paymentButton.init({
                   </tr>
                   <tr>
                     <th>authenticationOnly</th>
+                    <td>v1.0</td>
                     <td>Only authenticate the transaction (used for deferred authorization)</td>
                     <td>Boolean</td>
                   </tr>
                   <tr>
+                    <th>version</th>
+                    <td>v3.1</td>
+                    <td>
+                      <div>Transaction API version. Default: 1</div>
+                      <div>Allowed values: 1 | 2</div>
+                    </td>
+                    <td>Number</td>
+                  </tr>
+                  <tr>
                     <th>mcp</th>
+                    <td>v3.0</td>
                     <td>Configuration of Multi-Currency Pricing. Find out more <a href="https://docs.datatrans.ch/docs/multi-currency-pricing">here</a>.</td>
                     <td>Object</td>
                   </tr>
                   <tr>
                     <th class="indent-1">amount</th>
+                    <td>v3.0</td>
                     <td></td>
                     <td>Object</td>
                   </tr>
                   <tr>
                     <th class="indent-2">value</th>
+                    <td>v3.0</td>
                     <td>
                       <div>Amount the customer will pay in their currency.</div>
                       <div>
@@ -392,21 +416,25 @@ paymentButton.init({
                   </tr>
                   <tr>
                     <th class="indent-2">currency</th>
+                    <td>v3.0</td>
                     <td>ISO 4217 currency code of the amount the customer will pay.</td>
                     <td>String</td>
                   </tr>
                   <tr>
                     <th class="indent-1">provider</th>
+                    <td>v3.0</td>
                     <td>Identify the MCP provider used.</td>
                     <td>String</td>
                   </tr>
                   <tr>
                     <th class="indent-1">reasonIndicator</th>
+                    <td>v3.0</td>
                     <td>If received from acquirer the reason indicator can be set</td>
                     <td>String</td>
                   </tr>
                   <tr>
                     <th class="indent-1">conversionRate</th>
+                    <td>v3.0</td>
                     <td>
                       <div>Rate used to calculate MCP amount.</div>
                       <div>Note: Only used in dynamic MCP</div>
@@ -415,6 +443,7 @@ paymentButton.init({
                   </tr>
                   <tr>
                     <th class="indent-1">transactionDate</th>
+                    <td>v3.0</td>
                     <td>
                       <div>Date when the rate was fetched from the MCP provider.</div>
                       <div>Note: Only used in dynamic MCP</div>
@@ -423,6 +452,7 @@ paymentButton.init({
                   </tr>
                   <tr>
                     <th class="indent-1">retrievalReferenceNumber</th>
+                    <td>v3.0</td>
                     <td>
                       <div>Reference number of the MCP provider response.</div>
                       <div>Note: Only used in dynamic MCP</div>

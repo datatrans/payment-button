@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 const getUrl = (production) => production
-  ? 'https://pay.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
-  : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.0.0.js'
+  ? 'https://pay.datatrans.com/upp/payment/js/payment-button-3.1.0.js'
+  : 'https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js'
 
 const DEFAULT_OPTIONS = {
   useGooglePay: true,
