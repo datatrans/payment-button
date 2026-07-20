@@ -174,6 +174,7 @@ const payment = {
   transaction: {
     countryCode: 'CH',
     refno: '3e23dasdasd1123',
+    version: 1,
   },
 };</code></pre>
           </div>
@@ -274,6 +275,11 @@ paymentButton.init({
                   <td>Use this property to disable Apple Pay. Note: Apple Pay can only be displayed in
                     Safari browsers. Note: By default Apple Pay is enabled if supported by the browser</td>
                   <td>Boolean</td>
+                </tr>
+                <tr>
+                    <th>tokenOnly</th>
+                    <td>Whether to output token data only. Default is false.</td>
+                    <td>Boolean</td>
                 </tr>
                 <tr>
                   <th>autoSettle</th>
