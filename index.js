@@ -46,6 +46,7 @@ const payment = {
     countryCode: 'CH',
     refno: '3e23dasdasd1123',
     createAlias: false,
+    version: 1
   },
 };
 
@@ -98,6 +99,11 @@ $(document).ready(function () {
     if (data.target.id === 'currency') {
       payment.details.total.amount.currency = data.target.value;
       taxItem.amount.currency = data.target.value;
+      paymentButton1.create(document.getElementById('paybutton'), payment);
+    }
+
+    if (data.target.id === 'version') {
+      payment.transaction.version = Number(data.target.value);
       paymentButton1.create(document.getElementById('paybutton'), payment);
     }
 

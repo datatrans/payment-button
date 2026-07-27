@@ -34,6 +34,7 @@ const OPTIONS = {
     transaction: {
       countryCode: 'CH',
       refno: '3e23dasdasd1123',
+      version: 1
     },
   },
 }
