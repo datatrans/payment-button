@@ -1,155 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css"
+      integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/wallet-js.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="icons/favicon-16x16.png"
+    />
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#213d62" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <title>Payment Button Showcase</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="css/wallet-js.css" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-  <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#213d62">
-  <link rel="shortcut icon" href="icons/favicon.ico">
-  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-          integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-          crossorigin="anonymous">
-  </script>
-  <title>Payment Button Showcase</title>
-</head>
-
-<body class="p-2">
-  <div class="container" style="max-width: 2160px; margin: 0 auto;">
-    <div class="columns my-2">
-      <header class="navbar">
-        <section class="navbar-section">
-          <a href="#intro" class="btn btn-link">Introduction</a>
-          <a href="#howto" class="btn btn-link">How it works</a>
-          <a href="#reference" class="btn btn-link">Reference</a>
-        </section>
-      </header>
-    </div>
-
-    <div class="columns">
-      <div class="col-md-6 col-xs-12 column" id="intro">
-        <h2>Datatrans Payment Button </h2>
-        <p>
-          Use this JavaScript library to render an Apple Pay or Google Pay button. It uses the Payment Request API
-          <a href="https://www.w3.org/TR/payment-request/">specified</a> by W3C when available. If not, it falls back to
-          the corresponding vendor implementation. This library gives you a single integration for rendering payment
-          buttons. It can automatically detect which button should be displayed depending on the browser and device
-          combination that is supported and used. In the demo below, depending on your device you will see either an
-          Apple Pay or Google Pay button.
-          Please note that for Apple Pay this library only works with a Datatrans merchantId which has been enabled for
-          Apple Pay processing via Datatrans.
-        </p>
+  <body class="p-2">
+    <div class="container" style="max-width: 2160px; margin: 0 auto">
+      <div class="columns my-2">
+        <header class="navbar">
+          <section class="navbar-section">
+            <a href="#intro" class="btn btn-link">Introduction</a>
+            <a href="#howto" class="btn btn-link">How it works</a>
+            <a href="#reference" class="btn btn-link">Reference</a>
+          </section>
+        </header>
       </div>
-      <div class="col-12 column divider"></div>
-      <div class="col-12 column" id="demo">
-        <h3>Configure and test the example </h3>
-        <div class="columns">
-          <div class="col-3 col-xl-6 col-md-12 column">
-            <form class="form-horizontal" id="configForm">
-              <div class="columns" style="flex-direction: column">
-                <div class="col-md-6 col-xs-12 column mb-2">
-                  <div class="form-group">
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="useApplePay">
-                      <i class="form-icon"></i> Use Apple Pay only
-                    </label>
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="useGooglePay">
-                      <i class="form-icon"></i> Use Google Pay only
-                    </label>
+
+      <div class="columns">
+        <div class="col-md-6 col-xs-12 column" id="intro">
+          <h2>Datatrans Payment Button</h2>
+          <p>
+            Use this JavaScript library to render an Apple Pay or Google Pay
+            button. It uses the Payment Request API
+            <a href="https://www.w3.org/TR/payment-request/">specified</a> by
+            W3C when available. If not, it falls back to the corresponding
+            vendor implementation. This library gives you a single integration
+            for rendering payment buttons. It can automatically detect which
+            button should be displayed depending on the browser and device
+            combination that is supported and used. In the demo below, depending
+            on your device you will see either an Apple Pay or Google Pay
+            button. Please note that for Apple Pay this library only works with
+            a Datatrans merchantId which has been enabled for Apple Pay
+            processing via Datatrans.
+          </p>
+        </div>
+        <div class="col-12 column divider"></div>
+        <div class="col-12 column" id="demo">
+          <h3>Configure and test the example</h3>
+          <div class="columns">
+            <div class="col-3 col-xl-6 col-md-12 column">
+              <form class="form-horizontal" id="configForm">
+                <div class="columns" style="flex-direction: column">
+                  <div class="col-md-6 col-xs-12 column mb-2">
+                    <div class="form-group">
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="useApplePay" />
+                        <i class="form-icon"></i> Use Apple Pay only
+                      </label>
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="useGooglePay" />
+                        <i class="form-icon"></i> Use Google Pay only
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-xs-12 column mb-2">
+                    <div class="form-group">
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="requestPayerEmail" />
+                        <i class="form-icon"></i> Request Payer Email
+                      </label>
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="requestPayerName" />
+                        <i class="form-icon"></i> Request Payer Name
+                      </label>
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="requestPayerPhone" />
+                        <i class="form-icon"></i> Request Payer Phone
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-xs-12 column">
+                    <div class="form-group">
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="createAlias" />
+                        <i class="form-icon"></i> Create Alias
+                      </label>
+                      <label class="form-switch form-inline">
+                        <input type="checkbox" id="tokenOnly" />
+                        <i class="form-icon"></i> Output Token Data
+                      </label>
+                    </div>
                   </div>
                 </div>
-
-                <div class="col-md-6 col-xs-12 column mb-2">
-                  <div class="form-group">
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="requestPayerEmail">
-                      <i class="form-icon"></i> Request Payer Email
-                    </label>
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="requestPayerName">
-                      <i class="form-icon"></i> Request Payer Name
-                    </label>
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="requestPayerPhone">
-                      <i class="form-icon"></i> Request Payer Phone
-                    </label>
-                  </div>
+                <div class="form-group">
+                  <label class="form-label" for="merchantName"
+                    >Merchant Name</label
+                  >
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="merchantName"
+                    placeholder="Merchant Name"
+                  />
                 </div>
-
-                <div class="col-md-6 col-xs-12 column">
-                  <div class="form-group">
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="createAlias">
-                      <i class="form-icon"></i> Create Alias
-                    </label>
-                    <label class="form-switch form-inline">
-                      <input type="checkbox" id="tokenOnly">
-                      <i class="form-icon"></i> Output Token Data
-                    </label>
-                  </div>
+                <div class="form-group">
+                  <label class="form-label" for="amount">Amount</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    pattern="[0-9]*"
+                    id="amount"
+                    placeholder="Amount"
+                  />
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="merchantName">Merchant Name</label>
-                <input class="form-input" type="text" id="merchantName" placeholder="Merchant Name">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="amount">Amount</label>
-                <input class="form-input" type="text" pattern="[0-9]*" id="amount" placeholder="Amount">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="currency">Currency</label>
-                <select class="form-select" id="currency">
-                  <option value="CHF">CHF</option>
-                  <option value="USD" selected>USD</option>
-                  <option value="EUR">EUR</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="version">Transaction API version</label>
-                <select class="form-select" id="version">
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-            </form>
-          </div>
-
-          <div class="column col-md-12 mb-2 pb-2">
-            <h4>Events output</h4>
-            <div class="console p-relative bg-gray mb-2" style="min-height: 70px;">
-              <div class="console-content p-2"></div>
-              <i id="clearButton" class="p-absolute icon icon-2x icon-delete" style="bottom: 20px; right: 20px;"></i>
+                <div class="form-group">
+                  <label class="form-label" for="currency">Currency</label>
+                  <select class="form-select" id="currency">
+                    <option value="CHF">CHF</option>
+                    <option value="USD" selected>USD</option>
+                    <option value="EUR">EUR</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="version"
+                    >Transaction API version</label
+                  >
+                  <select class="form-select" id="version">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+              </form>
             </div>
-            <div id="paybutton" class="p-relative mb-2 pb-2"></div>
+
+            <div class="column col-md-12 mb-2 pb-2">
+              <h4>Events output</h4>
+              <div
+                class="console p-relative bg-gray mb-2"
+                style="min-height: 70px"
+              >
+                <div class="console-content p-2"></div>
+                <i
+                  id="clearButton"
+                  class="p-absolute icon icon-2x icon-delete"
+                  style="bottom: 20px; right: 20px"
+                ></i>
+              </div>
+              <div id="paybutton" class="p-relative mb-2 pb-2"></div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-12 column divider"></div>
+        <div class="col-12 column divider"></div>
 
-      <div class="col-12 column" id="howto">
-        <h2>How it works</h2>
-        <div class="columns">
-          <div class="col-12 column">
-            <h4>1) The payment request</h4>
-            The library expects a payment request when a button is created. The payment request is
-            an object which conforms with the <a
-              href="https://www.w3.org/TR/payment-request/#paymentrequest-interface">W3C payment
-              request interface description</a>.
-            The object is extended with a transaction property, which contains Datatrans-specific
-            values such as "countryCode", "refno", etc.
+        <div class="col-12 column" id="howto">
+          <h2>How it works</h2>
+          <div class="columns">
+            <div class="col-12 column">
+              <h4>1) The payment request</h4>
+              The library expects a payment request when a button is created.
+              The payment request is an object which conforms with the
+              <a
+                href="https://www.w3.org/TR/payment-request/#paymentrequest-interface"
+                >W3C payment request interface description</a
+              >. The object is extended with a transaction property, which
+              contains Datatrans-specific values such as "countryCode", "refno",
+              etc.
 
-            <pre data-lang="JSON"><code class="language-javascript">
+              <pre data-lang="JSON"><code class="language-javascript">
 const payment = {
   // W3C spec
   details: {
@@ -176,12 +233,22 @@ const payment = {
     refno: '3e23dasdasd1123',
     version: 1,
   },
+  // Fraud check (optional)
+  fraudCheck: {
+    cardholder: {
+      id: 'ABC2134567890',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      country: 'CH',
+    },
+  },
 };</code></pre>
-          </div>
-          <div class="col-12 column">
-            <h4>2) Initialize the library</h4>
-            <pre><code class="language-markup">&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
-            <pre><code class="language-javascript">
+            </div>
+            <div class="col-12 column">
+              <h4>2) Initialize the library</h4>
+              <pre><code class="language-markup">&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/payment-button-3.1.0.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+              <pre><code class="language-javascript">
 const paymentButton = new PaymentButton();
 
 paymentButton.init({
@@ -200,284 +267,797 @@ paymentButton.init({
     buttonStyle: 'black'
   },
 });</code></pre>
-          </div>
-          <div class="col-12 column">
-            <h4>3) Listen for the init event and create the button</h4>
-            <pre><code class="language-javascript">paymentButton.on("init", function () {
+            </div>
+            <div class="col-12 column">
+              <h4>3) Listen for the init event and create the button</h4>
+              <pre><code class="language-javascript">paymentButton.on("init", function () {
   paymentButton.create(document.getElementById('paybutton'), payment)
 });</code></pre>
-          </div>
-          <div class="col-12 column">
-            <h4>4) Listen for the authorization event and continue</h4>
-            <pre><code class="language-javascript">paymentButton.on("authorization", function (response) {
+            </div>
+            <div class="col-12 column">
+              <h4>4) Listen for the authorization event and continue</h4>
+              <pre><code class="language-javascript">paymentButton.on("authorization", function (response) {
   // handle transaction result
 });</code></pre>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div>
-          <h2>Reference</h2>
-          <div class="columns reference" id="reference">
-            <div class="col-3 col-xl-12 column mb-2">
-              <h4>Events</h4>
-              The following events are emitted by the library:
-              <ul>
-                <li><b>init</b> - emitted when the library is initialized and ready to use</li>
-                <li><b>create</b> - emitted when payment button is rendered</li>
-                <li><b>authorization</b> - emitted when an authorization response has been received - <b>payload:</b>
-                  authorization response</li>
-                <li><b>abort</b> - emitted when the payment request has been cancelled by the user</li>
-                <li><b>unsupported</b> - emitted when no payment method is supported</li>
-                <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
-              </ul>
             </div>
-            <div class="col-9 col-xl-12 column">
-              <h4>Init parameters</h4>
-              <table class="table">
-                <thead><tr>
-                  <th>Option</th>
-                  <th>Description</th>
-                  <th class="nowrap">Data type</th>
-                </tr></thead>
-                <tbody>
-                <tr>
-                  <th>
-                    merchantId
-                    <div class="text-error text-small">required</div>
-                  </th>
-                  <td>Your Datatrans merchantId</td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th>
-                    merchantName
-                    <div class="text-error text-small">required</div>
-                  </th>
-                  <td>Your merchant name</td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th>
-                    allowedCardNetworks
-                    <div class="text-error text-small">required</div>
-                  </th>
-                  <td>Which card networks to accept</td>
-                  <td class="nowrap">String array</td>
-                </tr>
-                <tr>
-                  <th>useGooglePay</th>
-                  <td>Use this property to disable Google Pay. Note: By default Google Pay is enabled if
-                    supported by the browser</td>
-                  <td>Boolean</td>
-                </tr>
-                <tr>
-                  <th>useApplePay</th>
-                  <td>Use this property to disable Apple Pay. Note: Apple Pay can only be displayed in
-                    Safari browsers. Note: By default Apple Pay is enabled if supported by the browser</td>
-                  <td>Boolean</td>
-                </tr>
-                <tr>
-                    <th>tokenOnly</th>
-                    <td>Whether to output token data only. Default is false.</td>
-                    <td>Boolean</td>
-                </tr>
-                <tr>
-                  <th>autoSettle</th>
-                  <td>Whether the transaction will be settled automatically. Default is false.</td>
-                  <td>Boolean</td>
-                </tr>
-                <tr>
-                  <th>googlePayConfiguration</th>
-                  <td></td>
-                  <td>Object</td>
-                </tr>
-                <tr>
-                  <th class="indent-1">buttonType</th>
-                  <td>The type of button, described <a
-                      href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
-                  </td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th class="indent-1">buttonStyle</th>
-                  <td>The style of button, described <a
-                      href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions">here</a>
-                  </td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th class="indent-1">merchantId</th>
-                  <td>Your Google Pay merchantId. Can be found in the Google Pay <a
-                      href="https://pay.google.com/business/console">merchant console</a>
-                  </td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th>applePayConfiguration</th>
-                  <td></td>
-                  <td>Object</td>
-                </tr>
-                <tr>
-                  <th class="indent-1">buttonType</th>
-                  <td>The type of button, described <a
-                      href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
-                  </td>
-                  <td>String</td>
-                </tr>
-                <tr>
-                  <th class="indent-1">buttonStyle</th>
-                  <td>The style of the button, described <a
-                      href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons">here</a>
-                  </td>
-                  <td>String</td>
-                </tr>
-              </table>
-              <br/>
-              <h4>Transaction parameters</h4>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Option</th>
-                    <th>Since</th>
-                    <th>Description</th>
-                    <th class="nowrap">Data type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>
-                      refno
-                      <div class="text-error text-small">required</div>
-                    </th>
-                    <td>v1.0</td>
-                    <td>
-                      Your reference number. Find out more
-                      <a href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
-                    </td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      countryCode
-                      <div class="text-error text-small">required</div>
-                    </th>
-                    <td>v1.0</td>
-                    <td>
-                      <div>ISO 3166-1 alpha-2 country code where the transaction is processed.</div>
-                      <div>This is required for merchants based in European Economic Area (EEA) countries.</div>
-                      <div><b>Mandatory</b> for payment-button v2 and v3 libraries.</div>
-                    </td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th>createAlias</th>
-                    <td>v1.0</td>
-                    <td>
-                      <div>Whether to create an alias.</div>
-                      <div>
-                        The alias will be sent on the <a href="https://api-reference.datatrans.ch/#section/Webhook">webhook</a>
-                        and is also returned through a <a href="https://api-reference.datatrans.ch/#operation/status">status call</a>.
-                      </div>
-                    </td>
-                    <td>Boolean</td>
-                  </tr>
-                  <tr>
-                    <th>authenticationOnly</th>
-                    <td>v1.0</td>
-                    <td>Only authenticate the transaction (used for deferred authorization)</td>
-                    <td>Boolean</td>
-                  </tr>
-                  <tr>
-                    <th>version</th>
-                    <td>v3.1</td>
-                    <td>
-                      <div>Transaction API version. Default: 1</div>
-                      <div>Allowed values: 1 | 2</div>
-                    </td>
-                    <td>Number</td>
-                  </tr>
-                  <tr>
-                    <th>mcp</th>
-                    <td>v3.0</td>
-                    <td>Configuration of Multi-Currency Pricing. Find out more <a href="https://docs.datatrans.ch/docs/multi-currency-pricing">here</a>.</td>
-                    <td>Object</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">amount</th>
-                    <td>v3.0</td>
-                    <td></td>
-                    <td>Object</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-2">value</th>
-                    <td>v3.0</td>
-                    <td>
-                      <div>Amount the customer will pay in their currency.</div>
-                      <div>
-                        If you want to include fractional monetary units (pennies, cents, Rappen), you will have to
-                        separate the amount using a decimal point (e.g. 5.10 instead of 510).
-                      </div>
-                    </td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-2">currency</th>
-                    <td>v3.0</td>
-                    <td>ISO 4217 currency code of the amount the customer will pay.</td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">provider</th>
-                    <td>v3.0</td>
-                    <td>Identify the MCP provider used.</td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">reasonIndicator</th>
-                    <td>v3.0</td>
-                    <td>If received from acquirer the reason indicator can be set</td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">conversionRate</th>
-                    <td>v3.0</td>
-                    <td>
-                      <div>Rate used to calculate MCP amount.</div>
-                      <div>Note: Only used in dynamic MCP</div>
-                    </td>
-                    <td class="nowrap">String | Number</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">transactionDate</th>
-                    <td>v3.0</td>
-                    <td>
-                      <div>Date when the rate was fetched from the MCP provider.</div>
-                      <div>Note: Only used in dynamic MCP</div>
-                    </td>
-                    <td>String</td>
-                  </tr>
-                  <tr>
-                    <th class="indent-1">retrievalReferenceNumber</th>
-                    <td>v3.0</td>
-                    <td>
-                      <div>Reference number of the MCP provider response.</div>
-                      <div>Note: Only used in dynamic MCP</div>
-                    </td>
-                    <td>String</td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <h2>Reference</h2>
+            <div class="columns reference" id="reference">
+              <div class="col-3 col-xl-12 column mb-2">
+                <h4>Events</h4>
+                The following events are emitted by the library:
+                <ul>
+                  <li>
+                    <b>init</b> - emitted when the library is initialized and
+                    ready to use
+                  </li>
+                  <li>
+                    <b>create</b> - emitted when payment button is rendered
+                  </li>
+                  <li>
+                    <b>authorization</b> - emitted when an authorization
+                    response has been received - <b>payload:</b> authorization
+                    response
+                  </li>
+                  <li>
+                    <b>abort</b> - emitted when the payment request has been
+                    cancelled by the user
+                  </li>
+                  <li>
+                    <b>unsupported</b> - emitted when no payment method is
+                    supported
+                  </li>
+                  <li>
+                    <b>error</b> - emitted when an error occurs -
+                    <b>&lt;optional&gt;payload:</b> error message
+                  </li>
+                </ul>
+              </div>
+              <div class="col-9 col-xl-12 column">
+                <h4>Init parameters</h4>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Option</th>
+                      <th>Description</th>
+                      <th class="nowrap">Data type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>
+                        merchantId
+                        <div class="text-error text-small">required</div>
+                      </th>
+                      <td>Your Datatrans merchantId</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th>
+                        merchantName
+                        <div class="text-error text-small">required</div>
+                      </th>
+                      <td>Your merchant name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th>
+                        allowedCardNetworks
+                        <div class="text-error text-small">required</div>
+                      </th>
+                      <td>Which card networks to accept</td>
+                      <td class="nowrap">String array</td>
+                    </tr>
+                    <tr>
+                      <th>useGooglePay</th>
+                      <td>
+                        Use this property to disable Google Pay. Note: By
+                        default Google Pay is enabled if supported by the
+                        browser
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>useApplePay</th>
+                      <td>
+                        Use this property to disable Apple Pay. Note: Apple Pay
+                        can only be displayed in Safari browsers. Note: By
+                        default Apple Pay is enabled if supported by the browser
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>tokenOnly</th>
+                      <td>
+                        Whether to output token data only. Default is false.
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>autoSettle</th>
+                      <td>
+                        Whether the transaction will be settled automatically.
+                        Default is false.
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>googlePayConfiguration</th>
+                      <td></td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">buttonType</th>
+                      <td>
+                        The type of button, described
+                        <a
+                          href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions"
+                          >here</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">buttonStyle</th>
+                      <td>
+                        The style of button, described
+                        <a
+                          href="https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions"
+                          >here</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">merchantId</th>
+                      <td>
+                        Your Google Pay merchantId. Can be found in the Google
+                        Pay
+                        <a href="https://pay.google.com/business/console"
+                          >merchant console</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th>applePayConfiguration</th>
+                      <td></td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">buttonType</th>
+                      <td>
+                        The type of button, described
+                        <a
+                          href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons"
+                          >here</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">buttonStyle</th>
+                      <td>
+                        The style of the button, described
+                        <a
+                          href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons"
+                          >here</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <h4>Transaction parameters</h4>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Option</th>
+                      <th>Since</th>
+                      <th>Description</th>
+                      <th class="nowrap">Data type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>
+                        refno
+                        <div class="text-error text-small">required</div>
+                      </th>
+                      <td>v1.0</td>
+                      <td>
+                        Your reference number. Find out more
+                        <a
+                          href="https://api-reference.datatrans.ch/#mandatory-parameters"
+                          >here</a
+                        >
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th>
+                        countryCode
+                        <div class="text-error text-small">required</div>
+                      </th>
+                      <td>v1.0</td>
+                      <td>
+                        <div>
+                          ISO 3166-1 alpha-2 country code where the transaction
+                          is processed.
+                        </div>
+                        <div>
+                          This is required for merchants based in European
+                          Economic Area (EEA) countries.
+                        </div>
+                        <div>
+                          <b>Mandatory</b> for payment-button v2 and v3
+                          libraries.
+                        </div>
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th>createAlias</th>
+                      <td>v1.0</td>
+                      <td>
+                        <div>Whether to create an alias.</div>
+                        <div>
+                          The alias will be sent on the
+                          <a
+                            href="https://api-reference.datatrans.ch/#section/Webhook"
+                            >webhook</a
+                          >
+                          and is also returned through a
+                          <a
+                            href="https://api-reference.datatrans.ch/#operation/status"
+                            >status call</a
+                          >.
+                        </div>
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>authenticationOnly</th>
+                      <td>v1.0</td>
+                      <td>
+                        Only authenticate the transaction (used for deferred
+                        authorization)
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th>version</th>
+                      <td>v3.1</td>
+                      <td>
+                        <div>Transaction API version. Default: 1</div>
+                        <div>Allowed values: 1 | 2</div>
+                      </td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th>mcp</th>
+                      <td>v3.0</td>
+                      <td>
+                        Configuration of Multi-Currency Pricing. Find out more
+                        <a
+                          href="https://docs.datatrans.ch/docs/multi-currency-pricing"
+                          >here</a
+                        >.
+                      </td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">amount</th>
+                      <td>v3.0</td>
+                      <td></td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">value</th>
+                      <td>v3.0</td>
+                      <td>
+                        <div>
+                          Amount the customer will pay in their currency.
+                        </div>
+                        <div>
+                          If you want to include fractional monetary units
+                          (pennies, cents, Rappen), you will have to separate
+                          the amount using a decimal point (e.g. 5.10 instead of
+                          510).
+                        </div>
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">currency</th>
+                      <td>v3.0</td>
+                      <td>
+                        ISO 4217 currency code of the amount the customer will
+                        pay.
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">provider</th>
+                      <td>v3.0</td>
+                      <td>Identify the MCP provider used.</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">reasonIndicator</th>
+                      <td>v3.0</td>
+                      <td>
+                        If received from acquirer the reason indicator can be
+                        set
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">conversionRate</th>
+                      <td>v3.0</td>
+                      <td>
+                        <div>Rate used to calculate MCP amount.</div>
+                        <div>Note: Only used in dynamic MCP</div>
+                      </td>
+                      <td class="nowrap">String | Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">transactionDate</th>
+                      <td>v3.0</td>
+                      <td>
+                        <div>
+                          Date when the rate was fetched from the MCP provider.
+                        </div>
+                        <div>Note: Only used in dynamic MCP</div>
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">retrievalReferenceNumber</th>
+                      <td>v3.0</td>
+                      <td>
+                        <div>
+                          Reference number of the MCP provider response.
+                        </div>
+                        <div>Note: Only used in dynamic MCP</div>
+                      </td>
+                      <td>String</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <h4>Fraud check parameters</h4>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Option</th>
+                      <th>Since</th>
+                      <th>Description</th>
+                      <th class="nowrap">Data type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>cardholder</th>
+                      <td>v3.2</td>
+                      <td>Cardholder information</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">id</th>
+                      <td>v3.2</td>
+                      <td>Unique cardholder reference from your system</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">firstName</th>
+                      <td>v3.2</td>
+                      <td>Cardholder first name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">lastName</th>
+                      <td>v3.2</td>
+                      <td>Cardholder last name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">email</th>
+                      <td>v3.2</td>
+                      <td>Cardholder email address</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">phone</th>
+                      <td>v3.2</td>
+                      <td>Cardholder phone number</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">mobilePhone</th>
+                      <td>v3.2</td>
+                      <td>Cardholder mobile phone</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">workPhone</th>
+                      <td>v3.2</td>
+                      <td>Cardholder work phone</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">company</th>
+                      <td>v3.2</td>
+                      <td>Cardholder company name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street</th>
+                      <td>v3.2</td>
+                      <td>Cardholder address line 1</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street2</th>
+                      <td>v3.2</td>
+                      <td>Cardholder address line 2</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">zipCode</th>
+                      <td>v3.2</td>
+                      <td>Cardholder zip/postal code</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">city</th>
+                      <td>v3.2</td>
+                      <td>Cardholder city</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">country</th>
+                      <td>v3.2</td>
+                      <td>Cardholder country in ISO 3166 alpha-2 codes</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">countrySubdivision</th>
+                      <td>v3.2</td>
+                      <td>
+                        Cardholder state or country subdivision - only use for
+                        countries where state is a defined/expected value
+                      </td>
+                      <td>String</td>
+                    </tr>
+
+                    <tr>
+                      <th>billing</th>
+                      <td>v3.2</td>
+                      <td>Billing contact and address details</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">firstName</th>
+                      <td>v3.2</td>
+                      <td>Billing first name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">lastName</th>
+                      <td>v3.2</td>
+                      <td>Billing last name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">email</th>
+                      <td>v3.2</td>
+                      <td>Billing email address</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">phone</th>
+                      <td>v3.2</td>
+                      <td>Billing phone number</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">company</th>
+                      <td>v3.2</td>
+                      <td>Billing company name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street</th>
+                      <td>v3.2</td>
+                      <td>Billing address line 1</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street2</th>
+                      <td>v3.2</td>
+                      <td>Billing address line 2</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">zipCode</th>
+                      <td>v3.2</td>
+                      <td>Billing address zip/postal code</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">city</th>
+                      <td>v3.2</td>
+                      <td>Billing address city</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">country</th>
+                      <td>v3.2</td>
+                      <td>Billing address country</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">countrySubdivision</th>
+                      <td>v3.2</td>
+                      <td>
+                        Billing address state or country subdivision - only use
+                        for countries where state is a defined/expected value
+                      </td>
+                      <td>String</td>
+                    </tr>
+
+                    <tr>
+                      <th>shipping</th>
+                      <td>v3.2</td>
+                      <td>Shipping contact and address details</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">firstName</th>
+                      <td>v3.2</td>
+                      <td>Shipping first name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">lastName</th>
+                      <td>v3.2</td>
+                      <td>Shipping last name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">email</th>
+                      <td>v3.2</td>
+                      <td>Shipping email address</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">phone</th>
+                      <td>v3.2</td>
+                      <td>Shipping phone number</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">company</th>
+                      <td>v3.2</td>
+                      <td>Shipping company name</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street</th>
+                      <td>v3.2</td>
+                      <td>Shipping address line 1</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">street2</th>
+                      <td>v3.2</td>
+                      <td>Shipping address line 2</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">zipCode</th>
+                      <td>v3.2</td>
+                      <td>Shipping zip/postal code</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">city</th>
+                      <td>v3.2</td>
+                      <td>Shipping address city</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">country</th>
+                      <td>v3.2</td>
+                      <td>Shipping address country</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">countrySubdivision</th>
+                      <td>v3.2</td>
+                      <td>
+                        Shipping address state or country subdivision - only use
+                        for countries where state is a defined/expected value
+                      </td>
+                      <td>String</td>
+                    </tr>
+
+                    <tr>
+                      <th>transaction</th>
+                      <td>v3.2</td>
+                      <td>Purchase-related information</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">netAmount</th>
+                      <td>v3.2</td>
+                      <td>
+                        Net amount of the transaction in the merchant currency
+                      </td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">taxAmount</th>
+                      <td>v3.2</td>
+                      <td>
+                        Tax amount of the transaction in the merchant currency
+                      </td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">shippingAmount</th>
+                      <td>v3.2</td>
+                      <td>Amount for shipping in the merchant currency</td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">discountAmount</th>
+                      <td>v3.2</td>
+                      <td>Amount of the discount in the merchant currency</td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">shippingDate</th>
+                      <td>v3.2</td>
+                      <td>Date of shipment in ISO-8601 format (YYYY-MM-DD)</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">userData</th>
+                      <td>v3.2</td>
+                      <td>
+                        Merchant defined data to provide information outside of
+                        the predefined API fields. Optional, but if present, at
+                        least one pair must be provided.
+                      </td>
+                      <td class="nowrap">Object array</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">id</th>
+                      <td>v3.2</td>
+                      <td>userData field number e.g [1], [2], [3]...</td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">value</th>
+                      <td>v3.2</td>
+                      <td>
+                        userData merchant defined data value - no PII or
+                        sensitive data must ever be sent via these userData
+                        fields
+                      </td>
+                      <td>String</td>
+                    </tr>
+
+                    <tr>
+                      <th>CDM</th>
+                      <td>v3.2</td>
+                      <td>
+                        CyberSource Decision Manager (CDM) specific
+                        configuration
+                      </td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">decisionManager</th>
+                      <td>v3.2</td>
+                      <td>CyberSource Decision Manager configuration</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">profile</th>
+                      <td>v3.2</td>
+                      <td>
+                        CyberSource Decision Manager profile name to use for
+                        this transaction
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">items</th>
+                      <td>v3.2</td>
+                      <td>Line items included in the transaction</td>
+                      <td class="nowrap">Object array</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">unitPrice</th>
+                      <td>v3.2</td>
+                      <td>
+                        Unit price of the item in the transaction currency
+                      </td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">productName</th>
+                      <td>v3.2</td>
+                      <td>Product name of the item</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">productSKU</th>
+                      <td>v3.2</td>
+                      <td>Product SKU of the item</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">quantity</th>
+                      <td>v3.2</td>
+                      <td>Quantity of the item</td>
+                      <td>Number</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">afsService</th>
+                      <td>v3.2</td>
+                      <td>CyberSource Advanced Fraud Screen service options</td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">avsCode</th>
+                      <td>v3.2</td>
+                      <td>
+                        Address Verification Service (AVS) code returned by the
+                        payment processor
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-2">run</th>
+                      <td>v3.2</td>
+                      <td>
+                        Whether to run the Advanced Fraud Screen (AFS) service.
+                        Defaults to running when omitted.
+                      </td>
+                      <td>Boolean</td>
+                    </tr>
+                    <tr>
+                      <th class="indent-1">clientApplication</th>
+                      <td>v3.2</td>
+                      <td>Client application identifier sent to CyberSource</td>
+                      <td>String</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="./index.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
-    window.Prism = window.Prism || {};
-    window.Prism.manual = true;
-  </script>
-</body>
+    <script src="./index.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+      integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      window.Prism = window.Prism || {};
+      window.Prism.manual = true;
+    </script>
+  </body>
+</html>
